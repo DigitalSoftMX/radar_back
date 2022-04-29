@@ -22,7 +22,7 @@ exports.PlacesYPrices = async function(req, res) {
         await xmlToJson(urlPlaces).then((data)=>{
             Place = data['places']['place']
         })
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 1; i++) {
             const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=1000&type=gas_station&keyword=cruise&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
             await googlePace(urlLocation).then((data)=>{
                 location.push(data)
