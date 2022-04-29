@@ -34,7 +34,7 @@ exports.PlacesYPrices = async function(req, res) {
             console.log('x',Place[i].location[0].y[0]);
         }  */
 
-        serveResp(location, null, 'Se creó satisfactoriamente la categoria', 201, res)
+        serveResp(Location, null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error);
         serveResp(null, error, 'Se creó satisfactoriamente la categoria', 201, res)
