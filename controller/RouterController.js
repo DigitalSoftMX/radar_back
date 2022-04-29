@@ -22,21 +22,20 @@ exports.PlacesYPrices = async function(req, res) {
         await xmlToJson(urlPlaces).then((data)=>{
             Place = data['places']['place']
         })
-        for (let i = 0; i < 1000; i++) {
-                console.log(Place[4])
-                console.log("y:",Place[i].location[0].y[0],"x:",Place[i].location[0].x[0]);
-                const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=40&type=gas_station&keyword=gas_station&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
+        for (let i = 0; i < 10; i++) {
+                //console.log(Place[4])
+                //console.log("y:",Place[i].location[0].y[0],"x:",Place[i].location[0].x[0]);
+                const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=28&type=gas_station&keyword=gas_station&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
                 await xmlToJson(urlLocation).then((data)=>{
-                    console.log(data);
+                    //console.log(data);
                     Location.push(data)
                     //console.dir(data)
                 })
         } 
 
-/*          for (let i = 0; i < 1; i++) {
-            console.log('y',Place[i].location[0].x[0]);
-            console.log('x',Place[i].location[0].y[0]);
-        }  */
+         for (let i = 0; i < Location; i++) {
+            console.table(Location[i].PlaceSearchResponse.result)
+        } 
 
         serveResp(Location, null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
