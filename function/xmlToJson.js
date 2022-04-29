@@ -33,7 +33,7 @@ var loadBody2 = function (res) {
     })
     res.on("end", function () {
         try {
-            var temp2 = JSON.parse(data) 
+            var temp2 = JSON.stringify(data) 
             deferred.resolve(temp2)
             console.log(temp2)
         } catch (error) {
