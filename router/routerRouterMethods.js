@@ -3,7 +3,7 @@
 //===============================================================================================
 
 const verifyToken = require('../function/serveResp')
-const routerController = require('../controller/routerController')
+const routerController = require('../controller/RouterController')
 const express = require('express')
 const app = express()
 
