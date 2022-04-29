@@ -29,4 +29,4 @@ function xmlToJson(url) {
 	});
 	return deferred.promise
 }
-module.exports = {xmlToJson, googlePace } 
+module.exports = {xmlToJson } 
