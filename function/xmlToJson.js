@@ -29,7 +29,7 @@ var loadBody2 = function (res) {
     res.on("data", function (chunk) {
         var json = JSON.stringify(chunk)
         var buf = Buffer.from(JSON.parse(json).data)
-        var data = buf.toString('utf8')
+        data = buf.toString('utf8')
     })
     res.on("end", function () {
         console.dir(data)
