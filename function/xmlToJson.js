@@ -32,11 +32,15 @@ var loadBody2 = function (res) {
         data = buf.toString('utf8')
     })
     res.on("end", function () {
-        console.dir(data)
-        var temp2 = JSON.parse(data) 
+        try {
+            console.dir(data)
+            var temp2 = JSON.parse(data) 
+            deferred.resolve(temp2)
+        } catch (error) {
+            console.log(error);
+        }
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
-      deferred.resolve(temp2)
       })
     return deferred.promise
   }
