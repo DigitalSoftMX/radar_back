@@ -32,7 +32,7 @@ var loadBody2 = function (res) {
         var data = buf.toString('utf8')
     })
     res.on("end", function () {
-        console.dir(temp)
+        console.dir(data)
         var temp2 = JSON.parse(data) 
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
