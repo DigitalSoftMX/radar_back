@@ -2,20 +2,16 @@
 //            LIBS
 //===============================================================================================
 
-const https = require('https'),
+const http = require('http'),
  express = require('express'),
  mongoose = require('mongoose'),
- bodyParser = require('body-parser'),
- fs = require("fs"),
- path = require("path")
+ bodyParser = require('body-parser')
 //===============================================================================================
 //            CONFIG
 //===============================================================================================
 
 const { PORT, URI } = require('./config/config')
 const app = express()
-certfile = fs.readFileSync(path.join(__dirname, "cert", "cert.pem"))
-keyfile = fs.readFileSync(path.join(__dirname, "cert", "key.pem"))
 //===============================================================================================
 //            HEADER REQUESTS
 //===============================================================================================
@@ -48,7 +44,7 @@ mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
 //            SERVER
 //===============================================================================================
 
-let server = https.createServer({ cert: certfile, key: keyfile },app)
+let server = http.createServer(app)
 server.listen(PORT, (err) => {
     if (err) throw new Error(err)
 })
