@@ -36,9 +36,9 @@ app.use(require('./router/router'))
 //            DATABASE
 //===============================================================================================
 
-mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
+/* mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(msg => console.log("DB online"))
-    .catch(error => console.log(error))
+    .catch(error => console.log(error)) */
 
 //===============================================================================================
 //            SERVER
