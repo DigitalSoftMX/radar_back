@@ -22,29 +22,6 @@ var loadBody = function (res) {
   })
   return deferred.promise
 }
-
-var loadBody2 = function (res) {
-    var deferred = Q.defer()
-    var data = ''
-    res.on("data", function (chunk) {
-        var json = JSON.stringify(chunk)
-        var buf = Buffer.from(JSON.parse(json).data)
-        data = buf.toString('utf8')
-    })
-    res.on("end", function () {
-        try {
-            var temp2 = JSON.stringify(data) 
-            deferred.resolve(temp2)
-            console.log(temp2)
-        } catch (error) {
-            console.log(error);
-        }
-       //data =  JSON.parse(chunk.toString());
-      //data += chunk.toString()
-      })
-    return deferred.promise
-  }
-
 function xmlToJson(url) {
 	var deferred = Q.defer()
 	httpGet(url).then(loadBody).then(function (res) {
@@ -52,12 +29,4 @@ function xmlToJson(url) {
 	});
 	return deferred.promise
 }
-function googlePace(url) {
-    var deferred = Q.defer()
-	httpGet(url).then(loadBody2).then(function (res) {
-    deferred.resolve(res)
-	});
-	return deferred.promise
-}
-
 module.exports = {xmlToJson, googlePace } 
