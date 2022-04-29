@@ -27,8 +27,8 @@ var loadBody2 = function (res) {
     var deferred = Q.defer()
     var data = ""
     res.on("data", function (chunk) {
-        var buf = Buffer.from(JSON.stringify(chunk));
-        var temp = JSON.parse(buf.toString());
+        var buf = Buffer.from(chunk);
+        var temp = buf.toJSON()
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
       deferred.resolve(temp)
