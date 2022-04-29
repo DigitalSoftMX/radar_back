@@ -1,4 +1,4 @@
-const{ xmlToJson, googlePace } = require("../function/xmlToJson")
+const{ xmlToJson } = require("../function/xmlToJson")
 const serveResp = require("../function/serveResp")
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
