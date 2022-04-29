@@ -8,7 +8,7 @@ const app = express();
 //======================================================================
 //            ROUTER FATHER
 //======================================================================
-
-
+app.use(require('./routerFacturation'))
+app.use(require('./routerRouterMethods'))
 
 module.exports = app

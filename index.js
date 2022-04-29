@@ -2,17 +2,20 @@
 //            LIBS
 //===============================================================================================
 
-const http = require('http')
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+const https = require('https'),
+ express = require('express'),
+ mongoose = require('mongoose'),
+ bodyParser = require('body-parser'),
+ fs = require("fs"),
+ path = require("path")
 //===============================================================================================
 //            CONFIG
 //===============================================================================================
 
 const { PORT, URI } = require('./config/config')
 const app = express()
-
+certfile = fs.readFileSync(path.join(__dirname, "cert", "cert.pem"))
+keyfile = fs.readFileSync(path.join(__dirname, "cert", "key.pem"))
 //===============================================================================================
 //            HEADER REQUESTS
 //===============================================================================================
@@ -29,6 +32,11 @@ app.use(bodyParser.urlencoded({limit: '50mb', parameterLimit: 100000, extended: 
 app.use(bodyParser.json({limit: '50mb', parameterLimit: 100000, extended: true}));
 
 //===============================================================================================
+//            ROUTER
+//===============================================================================================
+
+app.use(require('./router/router'))
+//===============================================================================================
 //            DATABASE
 //===============================================================================================
 
@@ -40,7 +48,7 @@ mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
 //            SERVER
 //===============================================================================================
 
-let server = http.createServer(app)
+let server = https.createServer({ cert: certfile, key: keyfile },app)
 server.listen(PORT, (err) => {
     if (err) throw new Error(err)
 })
