@@ -21,8 +21,7 @@ exports.PlacesYPrices = async function(req, res) {
         await xmlToJson(urlPlaces).then((data)=>{
             Place = data['places']['place']
         })
-        for (let i = 0; i < 10; i++) {
-            if (i == 4) {
+        for (let i = 0; i < 1000; i++) {
                 console.log(Place[4])
                 console.log("y:",Place[i].location[0].y[0],"x:",Place[i].location[0].x[0]);
                 const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/xml?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=40&type=gas_station&keyword=gas_station&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
@@ -30,7 +29,6 @@ exports.PlacesYPrices = async function(req, res) {
                     Location = data
                     //console.dir(data)
                 })
-            }
         } 
 
 /*          for (let i = 0; i < 1; i++) {
