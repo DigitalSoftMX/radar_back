@@ -30,6 +30,7 @@ var loadBody2 = function (res) {
         let json = JSON.stringify(chunk)
         var buf = Buffer.from(JSON.parse(json).data)
         var temp = buf.toString('utf8')
+        console.dir(temp)
         var temp2 = JSON.parse(temp) 
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
