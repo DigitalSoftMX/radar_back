@@ -33,7 +33,7 @@ var loadBody2 = function (res) {
         var temp2 = JSON.parse(temp) 
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
-      deferred.resolve(buf)
+      deferred.resolve(temp2)
     })
     return deferred.promise
   }
