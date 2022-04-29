@@ -29,7 +29,7 @@ var loadBody2 = function (res) {
     res.on("data", function (chunk) {
         let json = JSON.stringify(chunk)
         var buf = Buffer.from(JSON.parse(json).data)
-        var temp = buf.toString('utf8')
+        var temp = buf.toString()
        //data =  JSON.parse(chunk.toString());
       //data += chunk.toString()
       deferred.resolve(temp)

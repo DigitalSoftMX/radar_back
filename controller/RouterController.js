@@ -23,18 +23,18 @@ exports.PlacesYPrices = async function(req, res) {
             Place = data['places']['place']
         })
         for (let i = 0; i < 1; i++) {
-            const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=1000&type=gas_station&keyword=cruise&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
+            const urlLocation = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${Place[i].location[0].y[0]},${Place[i].location[0].x[0]}&radius=1000&type=gas_station&key=AIzaSyDAYDRUB8-MNmO6JAy0aHaNaOKmE5VZHpI`
             await googlePace(urlLocation).then((data)=>{
                 location.push(data)
                 console.dir(data)
             })
         } 
 
-/*          for (let i = 0; i < Place.length; i++) {
+/*          for (let i = 0; i < 1; i++) {
             console.log('y',Place[i].location[0].x[0]);
             console.log('x',Place[i].location[0].y[0]);
-        } 
- */
+        }  */
+
         serveResp(location, null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error);
