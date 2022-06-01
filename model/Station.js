@@ -16,6 +16,8 @@ const stationSchema = new Schema({
     competitors: {
         type: Schema.Types.ObjectId,
         trim: true,
-        ref: 'competitors'
+        ref: 'competitor'
     }
 })
+
+module.exports = mongoose.model('station', stationSchema)
