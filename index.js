@@ -12,6 +12,7 @@ const http = require('http'),
 
 const { PORT, URI } = require('./config/config')
 const app = express()
+
 //===============================================================================================
 //            HEADER REQUESTS
 //===============================================================================================
@@ -45,6 +46,8 @@ app.use(require('./router/router'))
 //===============================================================================================
  
 let server = http.createServer(app)
+const io = require('socket.io')(server)
+app.set('socketio',io)
 server.listen(PORT, (err) => {
     if (err) throw new Error(err)
 })

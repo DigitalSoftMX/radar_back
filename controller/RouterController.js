@@ -9,8 +9,8 @@ const serveResp = require("../function/serveResp")
 exports.PlacesYPrices = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
-        const urlPlaces = 'https://publicacionexterna.azurewebsites.net/publicaciones/places'
-        const urlPrices = 'https://publicacionexterna.azurewebsites.net/publicaciones/prices'
+        const urlPlaces = 'http://publicacionexterna.azurewebsites.net/publicaciones/places'
+        const urlPrices = 'http://publicacionexterna.azurewebsites.net/publicaciones/prices'
         let Place, Price = {}
         let placeYPrice = {
             
@@ -22,7 +22,7 @@ exports.PlacesYPrices = async function(req, res) {
         await xmlToJson(urlPlaces).then((data)=>{
             Place = data['places']['place']
         })
-        for (let i = 0; i < 10; i++) {
+/*         for (let i = 0; i < 10; i++) {
                 //console.log(Place[4])
                 console.log(Place[i]);
                 console.log("y:",Place[i].location[0].y[0],"x:",Place[i].location[0].x[0]);
@@ -36,7 +36,7 @@ exports.PlacesYPrices = async function(req, res) {
 
          for (let i = 0; i < Location; i++) {
             console.table(Location[i].PlaceSearchResponse.result)
-        } 
+        }  */
 
         serveResp(Location, null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
