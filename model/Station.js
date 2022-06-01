@@ -18,6 +18,6 @@ const stationSchema = new Schema({
         trim: true,
         ref: 'competitor'
     }
-})
+}, { timestamps: {} })
 
 module.exports = mongoose.model('station', stationSchema)
