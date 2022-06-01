@@ -28,4 +28,4 @@ const competitorsSchema = new schema({
     }
 }, { timestamps: {}})
 
-module.exports = mongoose.model('competitors', competitorsSchema)
+module.exports = mongoose.model('competitor', competitorsSchema)
