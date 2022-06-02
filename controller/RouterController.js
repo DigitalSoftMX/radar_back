@@ -10,7 +10,8 @@ const serveResp = require("../function/serveResp")
 exports.PlacesYPrices = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
-        //Place()
+         x  = await Place()
+         y  = await Price()
         //Location.push(Price)
 /*         for (let i = 0; i < 10; i++) {
                 //console.log(Place[4])
@@ -28,9 +29,10 @@ exports.PlacesYPrices = async function(req, res) {
             console.table(Location[i].PlaceSearchResponse.result)
         }  */
 
-      serveResp(Place(), 'Se creó satisfactoriamente la categoria', 201, res)
+
+      serveResp({x,y}, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
-        console.log(error);
+        console.log(error); 
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
