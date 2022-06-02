@@ -11,6 +11,6 @@ const app = express()
 //             ROUTER CHILDREN
 //===============================================================================================
 
-app.get('/PlacesYPrices',routerController.PlacesYPrices)
+//app.get('/PlacesYPrices',routerController.PlacesYPrices)
 app.get('/',routerController.PlacesYPrices)
 module.exports = app
