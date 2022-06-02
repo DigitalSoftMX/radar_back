@@ -25,6 +25,10 @@ const competitorsSchema = new schema({
     flag: {
         type: String,
         required: [true, 'La bandera es requerida']
+    },
+    prices: {
+        type: schema.Types.ObjectId,
+        required: [true, 'Los precios son requeridos']
     }
 }, { timestamps: {}})
 
