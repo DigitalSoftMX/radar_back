@@ -1,4 +1,5 @@
-const{ xmlToJson } = require("../function/xmlToJson")
+const{ Place } = require("../function/place")
+const{ Price } = require("../function/price")
 const serveResp = require("../function/serveResp")
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
@@ -9,19 +10,8 @@ const serveResp = require("../function/serveResp")
 exports.PlacesYPrices = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
-        const urlPlaces = 'http://publicacionexterna.azurewebsites.net/publicaciones/places'
-        const urlPrices = 'http://publicacionexterna.azurewebsites.net/publicaciones/prices'
-        let Place, Price = {}
-        let placeYPrice = {
-            
-        }
-        Location = []
-        await xmlToJson(urlPrices).then((data)=>{
-            Price = data['places']['place']
-        })
-        await xmlToJson(urlPlaces).then((data)=>{
-            Place = data['places']['place']
-        })
+        //Place()
+        //Location.push(Price)
 /*         for (let i = 0; i < 10; i++) {
                 //console.log(Place[4])
                 console.log(Place[i]);
@@ -38,9 +28,9 @@ exports.PlacesYPrices = async function(req, res) {
             console.table(Location[i].PlaceSearchResponse.result)
         }  */
 
-        serveResp(Location, null, 'Se creó satisfactoriamente la categoria', 201, res)
+      serveResp(Place(), 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error);
-        serveResp(null, error, 'Se creó satisfactoriamente la categoria', 201, res)
+        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }

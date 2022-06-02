@@ -1,4 +1,4 @@
-const serveResp = (data, error, message, code, resp) => {
+const serveResp = (data, message, code, resp) => {
     switch (code) {
         case 200:
         //La solicitud se ha realizado correctamente.
@@ -42,7 +42,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: false,
                     message,
-                    error
+                    data
                 })
             break;
         case 401:
@@ -51,7 +51,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: false,
                     message,
-                    error
+                    data
                 })
             break;
             case 402:
@@ -60,7 +60,7 @@ const serveResp = (data, error, message, code, resp) => {
                         .json({
                             ok: false,
                             message,
-                            error
+                            data
                         })
                     break;
         case 403:
@@ -69,7 +69,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: false,
                     message,
-                    error
+                    data
                 })
             break;
         case 406:
@@ -78,7 +78,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: true,
                     message,
-                    error
+                    data
                 })
             break;
         case 500:
@@ -87,7 +87,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: true,
                     message,
-                    error
+                    data
                })
             break;
         case 501:
@@ -96,7 +96,7 @@ const serveResp = (data, error, message, code, resp) => {
                 .json({
                     ok: true,
                     message,
-                    error
+                    data
                 })
             break;
             case 511:
@@ -105,7 +105,7 @@ const serveResp = (data, error, message, code, resp) => {
                         .json({
                             ok: true,
                             message,
-                            error
+                            data
                         })
                     break;
     }
