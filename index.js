@@ -2,10 +2,10 @@
 //            LIBS
 //===============================================================================================
 
-const http = require('http')
-const express = require('express')
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
+const http = require('http'),
+ express = require('express'),
+ mongoose = require('mongoose'),
+ bodyParser = require('body-parser')
 //===============================================================================================
 //            CONFIG
 //===============================================================================================
@@ -29,18 +29,25 @@ app.use(bodyParser.urlencoded({limit: '50mb', parameterLimit: 100000, extended: 
 app.use(bodyParser.json({limit: '50mb', parameterLimit: 100000, extended: true}));
 
 //===============================================================================================
+//            ROUTER
+//===============================================================================================
+
+app.use(require('./router/router'))
+//===============================================================================================
 //            DATABASE
 //===============================================================================================
 
-mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
+/* mongoose.connect(`${URI}`, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(msg => console.log("DB online"))
-    .catch(error => console.log(error))
+    .catch(error => console.log(error)) */
 
 //===============================================================================================
 //            SERVER
 //===============================================================================================
-
+ 
 let server = http.createServer(app)
+const io = require('socket.io')(server)
+app.set('socketio',io)
 server.listen(PORT, (err) => {
     if (err) throw new Error(err)
 })
