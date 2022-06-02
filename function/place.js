@@ -6,7 +6,7 @@ async function Place() {
     let places = {}
     intervalFunc =  await xmlToJson(urlPrices).then((data)=>{
         places = data['places']['place']
-        setTimeout(Place, 150);
+        //setTimeout(Place, 150);
     })
     return places
 }
