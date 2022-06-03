@@ -23,4 +23,6 @@ const userSchema = new Schema({
         trim: true,
         required: [true, 'El apellido es requerido']
     }
-})
+}, { timestamps: {} })
+
+module.exports = mongoose.model('user', userSchema)

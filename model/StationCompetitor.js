@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 let schema = mongoose.Schema
 const competitorsSchema = new schema({
     peso: {
-        type: String
+        type: Number
     },
     distance: {
         type: Number
