@@ -23,7 +23,6 @@ const placeCREE = [
 async function placesReposta() {
     placeArray  = await Place()
     priceArray  = await Price()
-    console.log(priceArray);
     for (let x = 0; x < placeCREE.length; x++) {
         for (let y = 0; y < placeArray.length; y++) {
             const element = placeArray[y]

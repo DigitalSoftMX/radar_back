@@ -17,6 +17,10 @@ const stationSchema = new Schema({
         type: Schema.Types.ObjectId,
         trim: true,
         ref: 'competitor'
+    },
+    prices: {
+        type: schema.Types.ObjectId,
+        required: [true, 'Los precios son requeridos']
     }
 }, { timestamps: {} })
 
