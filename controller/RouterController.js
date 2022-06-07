@@ -1,6 +1,6 @@
 const{ Place } = require("../function/place")
 const{ Price } = require("../function/price")
-const{ placesReposta } = require("../function/placesReposta")
+const{ placesData } = require("../helpers/placedata")
 const serveResp = require("../function/serveResp")
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
@@ -11,9 +11,8 @@ const serveResp = require("../function/serveResp")
 exports.PlacesYPrices = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
-/*          x  = await Place()
-         y  = await Price() */
-        z = await  placesReposta()
+        z = await  placesData()
+        //setInterval(placesReposta, 1000)
         //Location.push(Price)
 /*         for (let i = 0; i < 10; i++) {
                 //console.log(Place[4])

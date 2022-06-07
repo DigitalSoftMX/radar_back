@@ -3,10 +3,8 @@ const mongoose = require('mongoose')
 let schema = mongoose.Schema
 const competitorsSchema = new schema({
     peso: {
-        type: String
-    },
-    distance: {
-        type: Number
+        type: Boolean,
+        default: false
     },
     CRE: {
         type: String, 
@@ -18,18 +16,10 @@ const competitorsSchema = new schema({
         type: String,
         required: [true, 'El nombre de la compañia es requerido']
     },
-    adress: {
-        type: String,
-        required: [true, 'La dirección es requerida']
-    },
-    flag: {
-        type: String,
-        required: [true, 'La bandera es requerida']
-    },
-    prices: {
+    prices: [{
         type: schema.Types.ObjectId,
         required: [true, 'Los precios son requeridos']
-    }
+    }]
 }, { timestamps: {}})
 
 module.exports = mongoose.model('competitor', competitorsSchema)

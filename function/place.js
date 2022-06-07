@@ -5,16 +5,8 @@ async function Place() {
     let places = {}
     intervalFunc =  await xmlToJson(urlPlaces).then((data)=>{
         places = data['places']['place']
-        //setTimeout(Place, 150);
-        data['places']['place'].forEach(element => {
-            if (element?.$?.place_id == '10557') {
-                console.log('place_id', element?.$?.place_id)
-                console.log('name', element?.name)
-                console.log('cre_id', element?.cre_id)
-                console.log(element?.location);
-            }
-        });
+        //setTimeout(Place, 900)
     })
     return places
 }
-module.exports = { Place } 
+module.exports = { Place  } 
