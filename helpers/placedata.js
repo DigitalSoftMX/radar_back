@@ -18,7 +18,7 @@ async function placesData() {
         if (stationFind.length != 0) {
             let z = await Prices.findOneAndUpdate({stationId: stationFind._id},{$push:pivo})
             console.log('updateprice',z);
-        }else {
+        }else { 
             stations = new StationCompetitor({     
                 'CRE': element?.cre_id[0],
                 'companyName': element?.name[0]
