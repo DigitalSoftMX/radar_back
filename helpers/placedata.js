@@ -4,6 +4,7 @@ const StationCompetitor = require("../model/StationCompetitor")
 
 async function placesData() {
     let dataJson = await placesReposta()
+    varfinal = []
     for (let i = 0; i < dataJson.length; i++) {
         const element = dataJson[i]
         pivo = {
@@ -27,6 +28,7 @@ async function placesData() {
                 'prices':[{'regular':element?.regular,'diesel':element?.diesel,'premium':element?.premium}  ],
                 'stationId': infoStation._id
             })
+            varfinal.push(infoStation)
             priceStation2 = await priceStation.save()
             console.log('unico',priceStation2);
             prices = {prices: priceStation2._id}
@@ -34,7 +36,7 @@ async function placesData() {
         } 
     }
     //setInterval(placesData, 100)
-    return dataJson
+    return varfinal
 }
 
 module.exports = { placesData } 
