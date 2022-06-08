@@ -6,7 +6,7 @@ async function placesData() {
     let dataJson = await placesReposta()
     for (let i = 0; i < dataJson.length; i++) {
         const element = dataJson[i]
-        console.log(element);
+        console.log('baseJson',element);
         let pivo = {}
         let stationFind = await StationCompetitor.find({CRE:element.cre_id[0]})
             pivo = {
@@ -17,7 +17,7 @@ async function placesData() {
             }
         if (stationFind.length != 0) {
             let z = await Prices.findOneAndUpdate({stationId: stationFind._id},{$push:pivo})
-            console.log(z);
+            console.log('updateprice',z);
         }else {
             stations = new StationCompetitor({     
                 'CRE': element?.cre_id[0],
@@ -29,7 +29,7 @@ async function placesData() {
                 'stationId': infoStation._id
             })
             priceStation2 = await priceStation.save()
-            console.log(priceStation2);
+            console.log('unico',priceStation2);
             prices = {prices: priceStation2._id}
             await StationCompetitor.findByIdAndUpdate(infoStation._id, {$push: prices}) 
         } 
