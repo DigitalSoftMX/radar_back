@@ -64,7 +64,7 @@ async function placesReposta() {
                         'premium': premium
 
                     })
-                }
+                } 
                 if (element?.gas_price.length == 2) {
                     element?.gas_price.forEach((element) => {
                         if (element?.$?.type == 'regular') {
