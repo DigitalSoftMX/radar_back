@@ -32,7 +32,7 @@ async function placesData() {
                     'regular' :  element?.regular,
                     'diesel' : element?.diesel,
                     'premium' : element?.premium,
-                    'date': today.toISOString()}
+                    'date': today.toLocaleTimeString()}
                 }
             } 
             console.log(pivo);
