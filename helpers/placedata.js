@@ -6,17 +6,16 @@ async function placesData() {
     let dataJson = await placesReposta()
     for (let i = 0; i < dataJson.length; i++) {
         const element = dataJson[i]
-        let pivo = {}
-        let stationFind = await StationCompetitor.find({CRE:element.cre_id[0]})
         pivo = {
             'regular' : element?.regular,
             'diesel' : element?.diesel,
             'premium' : element?.premium,
             
         }
+        let stationFind = await StationCompetitor.find({CRE:element.cre_id[0]})
         console.log('stationFind',stationFind);
         if (stationFind.length != 0) {
-            let z = await Prices.findOneAndUpdate({'stationId': stationFind.stationFind},{$push:pivo})
+            let z = await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:pivo})
             console.log('updateprice',z);
         }else { 
             stations = new StationCompetitor({     
