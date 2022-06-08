@@ -18,7 +18,8 @@ const competitorsSchema = new schema({
     },
     prices: [{
         type: schema.Types.ObjectId,
-        required: [true, 'Los precios son requeridos']
+        required: [true, 'Los precios son requeridos'],
+        ref:'price'
     }]
 }, { timestamps: {}})
 

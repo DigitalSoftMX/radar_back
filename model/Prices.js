@@ -4,7 +4,7 @@ let Schema = mongoose.Schema
 const pricesSchema = new Schema({
     prices: {
         type: Array,
-        trim: true
+        trim: true,
     },
     stationId: {
         type: Schema.Types.ObjectId,

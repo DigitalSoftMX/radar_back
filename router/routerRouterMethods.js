@@ -13,4 +13,5 @@ const app = express()
 
 //app.get('/PlacesYPrices',routerController.PlacesYPrices)
 app.get('/',routerController.PlacesYPrices)
+app.get('/prices',routerController.PlacesYPricesExcel)
 module.exports = app
