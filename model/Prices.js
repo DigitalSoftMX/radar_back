@@ -2,10 +2,10 @@ const mongoose = require('mongoose')
 
 let Schema = mongoose.Schema
 const pricesSchema = new Schema({
-    prices: [{
+    prices: {
         type: Array,
         trim: true
-    }],
+    },
     stationId: {
         type: Schema.Types.ObjectId,
         trim: true,
