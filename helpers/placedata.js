@@ -39,7 +39,7 @@ async function placesData() {
             infoStation = await stations.save()
             console.log(infoStation);
             priceStation = new Prices({
-                'prices':[{'regular':element?.regular,'diesel':element?.diesel,'premium':element?.premium}],
+                'prices':[{'regular':element?.regular,'diesel':element?.diesel,'premium':element?.premium}  ],
                 'stationId': infoStation._id
             })
             priceStation2 = await priceStation.save()
