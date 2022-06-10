@@ -92,7 +92,7 @@ async function placesData() {
                 }
             })
         })
-        setInterval(placesData, 28800000)
+        setInterval(placesData, 1800000)
         return dataJson
     } catch (error) {
         console.log(error);
