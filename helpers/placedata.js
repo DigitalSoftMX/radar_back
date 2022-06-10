@@ -2,8 +2,9 @@ const{ placesReposta } = require("../function/placesReposta")
 const Prices = require("../model/Prices");
 const Station = require("../model/Station");
 //const StationCompetitor = require("../model/StationCompetitor")
-const timeElapsed = Date.now();
-const today = new Date(timeElapsed);
+//const timeElapsed = Date.now();
+const today = new Date();
+var f = new Date();
 const stationscompetitions =
     [{
         'cre_id' : 'PL/22857/EXP/ES/2019', 
@@ -57,14 +58,18 @@ async function placesData() {
                })
                idStation = await stations.save()
                 priceStation = new Prices({
-                    'prices':[{'regular':foundCree?.price?.regular,'diesel':foundCree?.price?.diesel,'premium':foundCree?.price?.premium, 'date': today.toLocaleString()}],
+                    'prices':[{
+                        'regular':foundCree?.price?.regular,
+                        'diesel':foundCree?.price?.diesel,
+                        'premium':foundCree?.price?.premium, 
+                        'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate()}],
                     'stationId': idStation._id
                 })
                 priceStation2 = await priceStation.save()
                 prices = {prices: priceStation2._id}
                 let x = await Station.findOneAndUpdate({'CRE':foundCree.cre_id}, {$push: prices},{new:true})
             } else {
-                prices = {prices: Object.assign(foundCree.price,{'date':today.toLocaleString()}) }
+                prices = {prices: Object.assign(foundCree.price,{'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate()}) }
                 let z = await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
             }
     
@@ -80,14 +85,18 @@ async function placesData() {
                    })
                    idStationCompetitors = await stationsCompetitors.save()
                    priceStation = new Prices({
-                       'prices':[{'regular':foundStation?.price?.regular,'diesel':foundStation?.price?.diesel,'premium':foundStation?.price?.premium, 'date': today.toLocaleString()}],
+                       'prices':[{
+                        'regular':foundStation?.price?.regular,
+                        'diesel':foundStation?.price?.diesel,
+                        'premium':foundStation?.price?.premium, 
+                        'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate()}],
                        'stationId': idStationCompetitors._id
                     })
                     priceStation2 = await priceStation.save()
                     prices = {prices: priceStation2._id}
                     let x = await Station.findOneAndUpdate({'CRE':foundStation.cre_id}, {$push: prices},{new:true})
                 }  else {
-                    prices = {prices: Object.assign(foundStation.price,{'date':today.toLocaleString()}) }
+                    prices = {prices: Object.assign(foundStation.price,{'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate()}) }
                     let z = await Prices.findOneAndUpdate({'stationId': stationCompFind2[0]._id},{$push:prices},{new:true})
                 }
             })
