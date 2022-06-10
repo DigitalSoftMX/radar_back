@@ -3,7 +3,8 @@ const{ Price } = require("../function/price")
 const{ placesData } = require("../helpers/placedata")
 const serveResp = require("../function/serveResp")
 const Prices = require("../model/Prices")
-const StationCompetitor = require("../model/StationCompetitor")
+const { datatoprintExcel } = require("../helpers/dataExcel")
+
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
 
@@ -40,11 +41,9 @@ exports.PlacesYPrices = async function(req, res) {
 exports.PlacesYPricesExcel = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
-        let estaciones = await StationCompetitor.find().populate('prices')
-        for (let i = 0; i < estaciones.length; i++) {
-            
-        }
-      serveResp(estaciones, 'Se creó satisfactoriamente la categoria', 201, res)
+        let x = await datatoprintExcel()
+        console.log(x);
+      serveResp(x, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
