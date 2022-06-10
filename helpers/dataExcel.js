@@ -45,17 +45,24 @@ async function datatoprintExcel() {
         for (let x = 0; x < stationscompetitions.length; x++) {
             const element = stationscompetitions[x];
             let stationFind = await Station.find({'CRE':element.cre_id})
-            .populate('prices', 'prices')
+            .populate({
+                path:'prices',
+                select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0, 'stationId':0} 
+            })
             .select(['-_id', '-competitor', '-createdAt', '-updatedAt'])
             temp = []
             for (let i = 0; i < element.competitions.length; i++) {
                 const cometitions = element.competitions[i];
                 let stationFindCompe = await Station.find({'CRE':cometitions})
-                .populate('prices', 'prices')
+                .populate({
+                    path:'prices',
+                    select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0},
+                    populate:{path:'stationId', select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0,'prices':0,'competitor':0} },
+                })
                 .select(['-_id', '-competitor', '-createdAt', '-updatedAt'])
-                temp.push(stationFindCompe[0])
+                temp.push(stationFindCompe[0].prices[0])
             };
-            dataPrice.push({'station':stationFind, 'competions':temp })
+            dataPrice.push({'stationName':stationFind[0]?.companyName,'CRE':stationFind[0]?.CRE,'prices':stationFind[0]?.prices[0]?.prices[0] ,'competions':temp })
         }
         return dataPrice
     } catch (error) {
