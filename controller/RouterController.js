@@ -41,6 +41,9 @@ exports.PlacesYPricesExcel = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
         let estaciones = await StationCompetitor.find().populate('prices')
+        for (let i = 0; i < estaciones.length; i++) {
+            
+        }
       serveResp(estaciones, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
