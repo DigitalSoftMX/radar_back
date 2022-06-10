@@ -42,7 +42,6 @@ exports.PlacesYPricesExcel = async function(req, res) {
     const error = { error: 'La request no tiene data'}
     try {
         let x = await datatoprintExcel()
-        console.log(x);
       serveResp(x, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 

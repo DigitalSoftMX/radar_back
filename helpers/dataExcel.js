@@ -60,14 +60,10 @@ async function datatoprintExcel() {
                     populate:{path:'stationId', select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0,'prices':0,'competitor':0} },
                 })
                 .select(['-_id', '-competitor', '-createdAt', '-updatedAt'])
-                if (i==0) {
-                    tempc ={'stationName':stationFind[0]?.companyName,'CRE':stationFind[0]?.CRE}
-                    temp.push({'regular':stationFind[0]?.prices[0]?.prices[0].regular, 'diesel':stationFind[0]?.prices[0]?.prices[0].diesel, 'premium':stationFind[0]?.prices[0]?.prices[0].premium, 'date':stationFind[0]?.prices[0]?.prices[0].date})
-                } else {
-                    temp.push({'regular':stationFind[0]?.prices[0]?.prices[0].regular, 'diesel':stationFind[0]?.prices[0]?.prices[0].diesel, 'premium':stationFind[0]?.prices[0]?.prices[0].premium, 'date':stationFind[0]?.prices[0]?.prices[0].date})
-                }
+                console.log(stationFindCompe);
+                temp.push({'stationName':stationFindCompe[0].companyName,'CRE':stationFindCompe[0].CRE,'prices':stationFindCompe[0].prices[0].prices})
             };
-            dataPrice.push({'stationName':stationFind[0]?.companyName,'CRE':stationFind[0]?.CRE,'prices':stationFind[0]?.prices[0]?.prices[0] ,'competitor':Object.assign(tempc,{'prices':temp}) })
+            dataPrice.push({'stationName':stationFind[0]?.companyName,'CRE':stationFind[0]?.CRE,'prices':stationFind[0]?.prices[0]?.prices[0] ,'competions':temp })
         }
         return dataPrice
     } catch (error) {
