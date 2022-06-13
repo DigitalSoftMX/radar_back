@@ -48,3 +48,26 @@ exports.PlacesYPricesExcel = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
+
+exports.PlacesYPricesByWeek = async function(req, res) {
+    const dateActually = req.params.date
+    const error = { error: 'La request no tiene data'}
+    try {
+        let dataCree = await datatoprintExcel()
+        for (let i = 0; i < dataCree.length; i++) {
+            for (let o = 0; o < dataCree[i].competions.length; o++) {
+                console.log(o+'.-'+dataCree[i].competions[o].prices);
+            }
+        }
+/*         function obtenerInicioYFinSemana(fecha) {
+            return {
+                inicio: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() - fecha.getDay() + 1),
+                fin: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + 6 - fecha.getDay()),
+            }
+        } */
+      serveResp(dataCree, 'Se creó satisfactoriamente la categoria', 201, res)
+    } catch (error) {
+        console.log(error) 
+        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+    } 
+}
