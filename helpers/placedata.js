@@ -77,7 +77,7 @@ async function placesData() {
                         if ((foundStation?.price?.regular != element.regular || foundStation?.price?.premium != element.premium || foundStation?.price?.diesel != element.diesel) && getToday != element.date) {
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
-                                `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })}
+                                `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()},{'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })}
                                 await Prices.findOneAndUpdate({'stationId': findStationCompe[0]._id},{$push:prices},{new:true})
                         } else {
                            console.log('precios repetidos'); 
