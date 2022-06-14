@@ -35,8 +35,7 @@ async function placesData() {
                 let x = await Station.findOneAndUpdate({'CRE':foundCree.cre_id}, {$push: prices},{new:true})
             } else {
                 let findStation = await Prices.find({'stationId': stationFind[0]._id})
-                for (let i = findStation[0].prices.length - 1 ; i < findStation[0].prices.length; i++) {
-                    const element = findStation[0].prices[i];
+                    const element = findStation[0].prices.length -1;
                     if ((foundCree.price.regular != element.regular ||  foundCree.price.premium != element.premium || foundCree.price.diesel != element.diesel) && getToday != element.date ) {         
                         prices = {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
@@ -45,7 +44,6 @@ async function placesData() {
                     } else {    
                         console.log('precios repetidos')                
                     } 
-                }
             }   
             station.competitions.forEach(async stationCompe => {
                 const foundStation =  dataJson.find(element => element.cre_id == stationCompe)
@@ -72,8 +70,7 @@ async function placesData() {
                     let x = await Station.findOneAndUpdate({'CRE':foundStation.cre_id}, {$push: prices},{new:true})
                 }  else {
                     let findStationCompe = await Prices.find({'stationId': stationCompFind2[0]._id})
-                    for (let e = findStationCompe[0]?.prices.length - 1; e < findStationCompe[0]?.prices.length; e++) {
-                        const element = findStationCompe[0]?.prices[e]
+                        const element = findStationCompe[0]?.prices.length -1
                         if ((foundStation?.price?.regular != element.regular || foundStation?.price?.premium != element.premium || foundStation?.price?.diesel != element.diesel) && getToday != element.date) {
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
@@ -82,7 +79,6 @@ async function placesData() {
                         } else {
                            console.log('precios repetidos'); 
                         }
-                    }
                 }
             }) 
         })
