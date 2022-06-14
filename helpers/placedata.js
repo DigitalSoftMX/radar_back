@@ -37,7 +37,7 @@ async function placesData() {
                 let findStation = await Prices.find({'stationId': stationFind[0]._id})
                 for (let i = 0; i < findStation[0].prices.length; i++) {
                     const element = findStation[0].prices[i];
-                    if (foundCree.price.regular != element.regular ||  foundCree.price.premium != element.premium || foundCree.price.diesel != element.diesel || getToday != element.date ) {         
+                    if ((foundCree.price.regular != element.regular ||  foundCree.price.premium != element.premium || foundCree.price.diesel != element.diesel) && getToday != element.date ) {         
                         prices = {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })}
@@ -74,7 +74,7 @@ async function placesData() {
                     let findStationCompe = await Prices.find({'stationId': stationCompFind2[0]._id})
                     for (let e = 0; e < findStationCompe[0]?.prices.length; e++) {
                         const element = findStationCompe[0]?.prices[e]
-                        if (foundStation?.price?.regular != element.regular || foundStation?.price?.premium != element.premium || foundStation?.price?.diesel != element.diesel || getToday != element.date) {
+                        if ((foundStation?.price?.regular != element.regular || foundStation?.price?.premium != element.premium || foundStation?.price?.diesel != element.diesel) && getToday != element.date) {
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
                                 `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })}
