@@ -14,6 +14,6 @@ const app = express()
 //app.get('/PlacesYPrices',routerController.PlacesYPrices)
 app.get('/',routerController.PlacesYPrices)
 app.get('/prices',routerController.PlacesYPricesExcel)
-app.get('/pricesByDay/:date',routerController.PlacesYPricesByDay)
+app.get('/pricesByDay/',routerController.PlacesYPricesByDay)
 app.post('/pricesByWeek/:date',routerController.PlacesYPricesByWeek)
 module.exports = app

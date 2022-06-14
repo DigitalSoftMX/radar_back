@@ -53,15 +53,15 @@ exports.PlacesYPricesExcel = async function(req, res) {
 }
 
 exports.PlacesYPricesByDay = async function(req, res) {
+    console.log(req);
     dataPrice = []
-    const dateActually = req.params.date
+    const dateActually = req.query.date
     try {
         let dataCree = await datatoprintExcel()
         stationscompetitions.forEach(async station => {
             const foundCree =  dataCree.find(element => element.CRE == station.cre_id)
             //console.log(foundCree);
             dateCreBase = foundCree?.prices[0].prices
-            console.log(dateCreBase);
             temp = []
             station.competitions.forEach(stationCompe => {
                 let dataCompe = []
@@ -73,7 +73,6 @@ exports.PlacesYPricesByDay = async function(req, res) {
 
             })
            dataContent =  compareDate(dateCreBase, dateActually)
-           console.log(dataContent);
            dataPrice.push({'stationName':foundCree?.companyName,'CRE':foundCree?.CRE,'prices':dataContent ,'competions':temp })
         });
         /*for (let x = 0; x < stationscompetitions.length; x++) {
