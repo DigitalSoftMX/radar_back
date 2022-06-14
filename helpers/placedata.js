@@ -35,16 +35,26 @@ async function placesData() {
                 let x = await Station.findOneAndUpdate({'CRE':foundCree.cre_id}, {$push: prices},{new:true})
             } else {
                 let findStation = await Prices.find({'stationId': stationFind[0]._id})
-                    const element = findStation[0].prices.length -1;
-                    if ((foundCree.price.regular != findStation[0].prices[element]?.regular ||  foundCree.price.premium != findStation[0].prices[element]?.premium || foundCree.price.diesel != findStation[0].prices[element]?.diesel) && getToday != findStation[0].prices[element]?.date ) {         
+                    const i = findStation[0].prices.length -1;
+                    if (foundCree.price.regular != findStation[0].prices[i]?.regular ||  foundCree.price.premium != findStation[0].prices[i]?.premium || foundCree.price.diesel != findStation[0].prices[i]?.diesel ) {         
+                        console.log('precios unicos') 
                         prices = {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
                         //console.log(prices);
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
-                    } else {    
-                        console.log('precios repetidos')                
+                    }else if(getToday != findStation[0].prices[i]?.date) {
+                        console.log('fechas unicas') 
+                        prices = {
+                            prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
+                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                        }
+                        //console.log(prices);
+                            await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
+                    }
+                    else {    
+                        console.log('precios y fechas repetidos')                
                     } 
             }   
             station.competitions.forEach(async stationCompe => {
@@ -72,22 +82,30 @@ async function placesData() {
                     let x = await Station.findOneAndUpdate({'CRE':foundStation.cre_id}, {$push: prices},{new:true})
                 }  else {
                     let findStationCompe = await Prices.find({'stationId': stationCompFind2[0]._id})
-                    const element = findStationCompe[0]?.prices.length -1
-                    console.log(element+'.-'+findStationCompe[0].prices[element].regular);
-                        if ((foundStation?.price?.regular != findStationCompe[0]?.prices[element]?.regular || foundStation?.price?.premium != findStationCompe[0]?.prices[element]?.premium || foundStation?.price?.diesel != findStationCompe[0]?.prices[element]?.diesel) && getToday != findStationCompe[0]?.prices[element]?.date) {
+                    const j = findStationCompe[0]?.prices.length -1
+                        if (foundStation?.price?.regular != findStationCompe[0]?.prices[j]?.regular || foundStation?.price?.premium != findStationCompe[0]?.prices[j]?.premium || foundStation?.price?.diesel != findStationCompe[0]?.prices[j]?.diesel) {
+                            console.log('precios unicos'); 
+                            console.log(findStationCompe)
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
                                 `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()},{'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                             }
-                                console.log(prices);
-                                await Prices.findOneAndUpdate({'stationId': findStationCompe[0]._id},{$push:prices},{new:true})
+                                await Prices.findOneAndUpdate({'stationId': stationCompFind2[0]._id},{$push:prices},{new:true})
+                        } else if(getToday != findStationCompe[0]?.prices[j]?.date){
+                            console.log('fechas unicos'); 
+                            prices = {
+                                prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
+                                `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()},{'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                            }
+                              await Prices.findOneAndUpdate({'stationId': stationCompFind2[0]._id},{$push:prices},{new:true})
+                              
                         } else {
-                           console.log('precios repetidos'); 
+                           console.log('precios y fechas repetidos'); 
                         }
                 }
             }) 
         })
-        //setInterval(placesData, 3600000)
+        setInterval(placesData, 3600000)
         //setInterval(placesData, 60000)
         return dataJson
     } catch (error) {
