@@ -35,7 +35,7 @@ async function placesData() {
                 let x = await Station.findOneAndUpdate({'CRE':foundCree.cre_id}, {$push: prices},{new:true})
             } else {
                 let findStation = await Prices.find({'stationId': stationFind[0]._id})
-                for (let i = 0; i < findStation[0].prices.length; i++) {
+                for (let i = findStation[0].prices.length - 1 ; i < findStation[0].prices.length; i++) {
                     const element = findStation[0].prices[i];
                     if ((foundCree.price.regular != element.regular ||  foundCree.price.premium != element.premium || foundCree.price.diesel != element.diesel) && getToday != element.date ) {         
                         prices = {
@@ -72,7 +72,7 @@ async function placesData() {
                     let x = await Station.findOneAndUpdate({'CRE':foundStation.cre_id}, {$push: prices},{new:true})
                 }  else {
                     let findStationCompe = await Prices.find({'stationId': stationCompFind2[0]._id})
-                    for (let e = 0; e < findStationCompe[0]?.prices.length; e++) {
+                    for (let e = findStationCompe[0]?.prices.length - 1; e < findStationCompe[0]?.prices.length; e++) {
                         const element = findStationCompe[0]?.prices[e]
                         if ((foundStation?.price?.regular != element.regular || foundStation?.price?.premium != element.premium || foundStation?.price?.diesel != element.diesel) && getToday != element.date) {
                             prices = {
