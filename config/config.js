@@ -1,6 +1,6 @@
 require('dotenv').config()
 const PORT = process.env.PORT || 3200
-const URI = process.env.URI 
+const URI = 'mongodb+srv://Onexpo:x4IIGYxGgVClnYC8@cluster0.9lsvc.mongodb.net/reposta?retryWrites=true&w=majority'
 module.exports = {
     PORT,
     URI 
