@@ -53,7 +53,6 @@ exports.PlacesYPricesExcel = async function(req, res) {
 }
 
 exports.PlacesYPricesByDay = async function(req, res) {
-    console.log(req);
     dataPrice = []
     const dateActually = req.query.date
     try {
@@ -75,34 +74,6 @@ exports.PlacesYPricesByDay = async function(req, res) {
            dataContent =  compareDate(dateCreBase, dateActually)
            dataPrice.push({'stationName':foundCree?.companyName,'CRE':foundCree?.CRE,'prices':dataContent ,'competions':temp })
         });
-        /*for (let x = 0; x < stationscompetitions.length; x++) {
-            const foundCree =  dataJson.find(element => element.cre_id == station.cre_id)
-            const element = stationscompetitions[x];
-            let stationFind = await Station.find({'CRE':element.cre_id})
-            .populate({
-                path:'prices',
-                select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0, 'stationId':0} 
-            })
-            .select(['-_id', '-competitor', '-createdAt', '-updatedAt'])
-            temp = []
-            for (let i = 0; i < element.competitions.length; i++) {
-                const cometitions = element.competitions[i];
-                let stationFindCompe = await Station.find({'CRE':cometitions})
-                .populate({
-                    path:'prices',
-                    select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0},
-                    populate:{path:'stationId', select: {'_id': 0, 'createdAt': 0, 'updatedAt': 0,'prices':0,'competitor':0} },
-                })
-                .select(['-_id', '-competitor', '-createdAt', '-updatedAt'])
-                temp.push({'stationName':stationFindCompe[0].companyName,'CRE':stationFindCompe[0].CRE,'prices':stationFindCompe[0].prices[0].prices})
-            };
-            dataPrice.push({'stationName':stationFind[0]?.companyName,'CRE':stationFind[0]?.CRE,'prices':stationFind[0]?.prices[0]?.prices[0] ,'competions':temp })
-        } */
-/*         for (let i = 0; i < dataCree.length; i++) {
-            for (let o = 0; o < dataCree[i].competions.length; o++) {
-                console.log(o+'.-'+dataCree[i].competions[o].prices.competions)
-            }
-        } */
 /*         function obtenerInicioYFinSemana(fecha) {
             return {
                 inicio: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() - fecha.getDay() + 1),
@@ -128,13 +99,28 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         }
 /*         function obtenerInicioYFinSemana(fecha) {
             return {
-                inicio: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() - fecha.getDay() + 1),
+                inicio: new Date(fecha.getFullYear(),fecha.getMonth(), fecha.getDate() - fecha.getDay() + 1),
                 fin: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + 6 - fecha.getDay()),
             }
         } */
       serveResp(dataCree, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
-        console.log(error) 
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
+}
+
+exports.DownloadExcel = async function(req, res) {
+
+ /*    try {
+        let dataCree = await datatoprintExcel()
+        for (let i = 0; i < dataCree.length; i++) {
+            for (let o = 0; o < dataCree[i].competions.length; o++) {
+                console.log(o+'.-'+dataCree[i].competions[o].prices);
+            }
+        }
+
+      serveResp(dataCree, 'Se creó satisfactoriamente la categoria', 201, res)
+    } catch (error) {
+        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+    }  */
 }

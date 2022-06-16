@@ -82,23 +82,22 @@ async function placesData() {
                     let x = await Station.findOneAndUpdate({'CRE':foundStation.cre_id}, {$push: prices},{new:true})
                 }  else {
                     let findStationCompe = await Prices.find({'stationId': stationCompFind2[0]._id})
-                    const j = findStationCompe[0]?.prices.length -1
+                    console.log(findStationCompe);
+                    const j = findStationCompe[0]?.prices.length - 1
                         if (foundStation?.price?.regular != findStationCompe[0]?.prices[j]?.regular || foundStation?.price?.premium != findStationCompe[0]?.prices[j]?.premium || foundStation?.price?.diesel != findStationCompe[0]?.prices[j]?.diesel) {
                             console.log('precios unicos'); 
-                            console.log(findStationCompe)
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
                                 `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()},{'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                             }
                                 await Prices.findOneAndUpdate({'stationId': stationCompFind2[0]._id},{$push:prices},{new:true})
                         } else if(getToday != findStationCompe[0]?.prices[j]?.date){
-                            console.log('fechas unicos'); 
+                            console.log('fechas unicos')
                             prices = {
                                 prices: Object.assign({'regular':foundStation?.price?.regular, 'premium':foundStation?.price?.premium, 'diesel':foundStation?.price?.diesel},{'date': today.getFullYear() + "-" + 
                                 `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()},{'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                             }
                               await Prices.findOneAndUpdate({'stationId': stationCompFind2[0]._id},{$push:prices},{new:true})
-                              
                         } else {
                            console.log('precios y fechas repetidos'); 
                         }
