@@ -15,7 +15,8 @@ const app = express()
 app.get('/',routerController.PlacesYPrices)
 app.get('/prices',routerController.PlacesYPricesExcel)
 app.get('/pricesByDay/',routerController.PlacesYPricesByDay)
-app.post('/pricesByWeek/:date',routerController.PlacesYPricesByWeek)
+app.post('/pricesByWeek/',routerController.PlacesYPricesByWeek)
+app.post('/purcharseDay/',routerController.PlacesYPricesByWeek)
 app.post('/download/excel',routerController.DownloadExcel)
 
 module.exports = app

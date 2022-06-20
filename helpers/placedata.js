@@ -2,8 +2,6 @@ const{ placesReposta } = require("../function/placesReposta")
 const Prices = require("../model/Prices");
 const Station = require("../model/Station");
 const station = require("./station")
-//const StationCompetitor = require("../model/StationCompetitor")
-//const timeElapsed = Date.now();
 const today = new Date();
 var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
 
@@ -42,7 +40,6 @@ async function placesData() {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
-                        //console.log(prices);
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }else if(getToday != findStation[0].prices[i]?.date) {
                         console.log('fechas unicas') 
@@ -50,7 +47,6 @@ async function placesData() {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
-                        //console.log(prices);
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }
                     else {    
