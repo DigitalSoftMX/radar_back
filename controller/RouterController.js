@@ -81,7 +81,7 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         const diff = dateFinal - dateInint
         console.log(diff/(1000*60*60*24));
         const dates = []
-        for (let dateRange = 0; dateRange < (diff/(1000*60*60*24)+1); dateRange++) {
+        for (let dateRange = 0; dateRange < (diff/(1000*60*60*24)+2); dateRange++) {
             const dateRangeUp = dateRow.getFullYear() + "-" + `${(dateRow.getMonth()+1)}`.padStart(2,'0') +"-" + (dateRow.getDate()+ dateRange)
             console.log(dateRange+'-.'+dateRangeUp)
             dates.push(dateRangeUp)
