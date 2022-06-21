@@ -35,7 +35,7 @@ exports.PlacesYPricesExcel = async function(req, res) {
 
 exports.PlacesYPricesByDay = async function(req, res) {
     dataPrice = []
-    const dateActually = req.query.date0
+    const dateActually = req.query.date
     try {
         let dataCree = await datatoprintExcel()
         stationscompetitions.forEach(async station => {
