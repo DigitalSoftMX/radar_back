@@ -40,6 +40,17 @@ exports.PlacesYPricesByDay = async function(req, res) {
     const dateActually = req.query.date
     try {
         let dataCree = await datatoprintExcel()
+        let datePurchase = await Purchase.find({
+            $and: [
+                { purchaseRegular_date: { $lt : dateActually } },
+                { purchasePremium_date: { $lt : dateActually } },
+                { purchaseDiesel_date: { $lt : dateActually } },
+                { recommendedRegular_date: { $lt : dateActually } },
+                { recommendedPremium_date: { $lt : dateActually } },
+                { recommendedDiesel_date: { $lt : dateActually } },
+            ]
+        })
+        console.log(datePurchase);
         stationscompetitions.forEach(async station => {
             const foundCree =  dataCree.find(element => element.CRE == station.cre_id)
             //console.log(foundCree);
@@ -55,7 +66,13 @@ exports.PlacesYPricesByDay = async function(req, res) {
 
             })
            dataContent =  compareDate(dateCreBase, dateActually)
-           dataPrice.push({'stationName':foundCree?.companyName,'CRE':foundCree?.CRE,'prices':dataContent ,'competions':temp })
+           dataPrice.push({
+            'stationName':foundCree?.companyName,
+            'CRE':foundCree?.CRE,
+            'prices':dataContent,
+            'competions':temp,
+            'purchasePrice':datePurchase[0]
+            })
         });
 /*         function obtenerInicioYFinSemana(fecha) {
             return {
