@@ -3,7 +3,7 @@ const mongoose = require ('mongoose')
 
 let Schema = mongoose.Schema
 const purchaseSchema = new Schema({
-    purchaseRegular_prices: {
+    purchaseRegular_price: {
         type: String,
         trim: true,
     },
@@ -11,7 +11,7 @@ const purchaseSchema = new Schema({
         type: String,
         trim: true,
     },
-    purchasePremium_prices: {
+    purchasePremium_price: {
         type: String,
         trim: true,
     },
@@ -19,7 +19,7 @@ const purchaseSchema = new Schema({
         type: String,
         trim: true,
     },
-    purchaseDiesel_prices: {
+    purchaseDiesel_price: {
         type: String,
         trim: true,
     },
@@ -27,7 +27,7 @@ const purchaseSchema = new Schema({
         type: String,
         trim: true,
     },
-    recommendedRegular_prices:{
+    recommendedRegular_price:{
         type:String,
         trim: true,
     },
@@ -35,7 +35,7 @@ const purchaseSchema = new Schema({
         type:String,
         trim: true,
     },
-    recommendedPremium_prices:{
+    recommendedPremium_price:{
         type: String,
         trim: true,
     },
@@ -43,7 +43,7 @@ const purchaseSchema = new Schema({
         type: String,
         trim: true,
     },
-    recommendedDiesel_prices:{
+    recommendedDiesel_price:{
         type: String,
         trim: true,
     },
