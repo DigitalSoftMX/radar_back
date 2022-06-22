@@ -78,7 +78,8 @@ exports.PurchaseDay = async function(req, res) {
         const purchaseDiesel =  req.body?.purchaseDiesel
         const recommendedRegular = req.body?.recommendedRegular
         const recommendedPremium = req.body?.recommendedPremium
-        const recommendedDiesel = req.body?.recommendedDiesel       
+        const recommendedDiesel = req.body?.recommendedDiesel 
+
         purcharseData = new Purcharse({
             purchaseRegular: purchaseRegular, 
             purchasePremium: purchasePremium,
@@ -88,7 +89,7 @@ exports.PurchaseDay = async function(req, res) {
             recommendedDiesel: recommendedDiesel
     })
 
-    dataPrice = purcharseData.save()
+    dataPrice = await purcharseData.save()
     
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
