@@ -148,6 +148,7 @@ async function placesData() {
             }) 
         }) */
         setInterval(placesData, 3600000)
+        console.log('ARCHIVO DE LA CRE EJECUTADO');
         //setInterval(placesData, 60000)
         return dataJson
     } catch (error) {
