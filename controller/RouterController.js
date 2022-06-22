@@ -103,7 +103,7 @@ exports.PurchaseDay = async function(req, res) {
             recommendedPremium = { recommendedPremium: req.body?.recommendedPremium }
             recommendedDiesel = { recommendedDiesel: req.body?.recommendedDiesel }
             
-        dataPrice =  await Purchase.findByIdAndUpdate(purcharseday[0]._id,
+        dataPrice =  await Purchase.findOneAndUpdate({'_id':purcharseday[0]._id},
                 {$push:purchaseRegular, $push:purchasePremium, $push:purchaseDiesel,  
                  $push:recommendedRegular, $push:recommendedPremium, $push:recommendedDiesel},{new:true})
         } 
