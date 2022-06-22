@@ -3,13 +3,29 @@ const mongoose = require ('mongoose')
 
 let Schema = mongoose.Schema
 const purchaseSchema = new Schema({
-    price: [{
+    purchaseRegular: {
         type: Array,
-    }],
-    purchaseDate: {
-        type: Date,
         trim: true,
-        required: [true, 'La fecha de compra es requerida']
+    },
+    purchasePremium: {
+        type: Array,
+        trim: true,
+    },
+    purchaseDiesel: {
+        type: Array,
+        trim: true,
+    },
+    recommendedRegular:{
+        type:Array,
+        trim: true,
+    },
+    recommendedPremium:{
+        type: Array,
+        trim: true,
+    },
+    recommendedDiesel:{
+        type: Array,
+        trim: true,
     }
 }, { timestamps: {}})
 

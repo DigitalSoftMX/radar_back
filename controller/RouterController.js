@@ -1,12 +1,14 @@
 const{ placesData } = require("../helpers/placedata")
 const serveResp = require("../function/serveResp")
-const Prices = require("../model/Prices")
 const { datatoprintExcel } = require("../helpers/dataExcel")
 const stationscompetitions = require("../helpers/stationscompetitions")
 const compareDate = require("../helpers/compareDate")
 const rangeDates = require("../helpers/rangeDates")
+const Purchase = require('../model/Purchase')
 let dataPrice = []
 let temp = []
+const today = new Date();
+var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
 //!==============================================================================================
@@ -68,11 +70,35 @@ exports.PlacesYPricesByDay = async function(req, res) {
     } 
 }
 
+exports.PurchaseDay = async function(req, res) {
+
+    try {
+        const purchaseRegular =  req.query.data?.purchaseRegular
+        const purchasePremium =  req.query.data?.purchasePremium
+        const purchaseDiesel =  req.query.data?.purchaseDiesel
+        const recommendedRegular = req.query.data?.recommendedRegular
+        const recommendedPremium = req.query.data?.recommendedPremium
+        const recommendedDiesel = req.query.data?.recommendedDiesel       
+        purcharseData = new Purcharse({
+            purchaseRegular: purchaseRegular, 
+            purchasePremium: purchasePremium,
+            purchaseDiesel: purchaseDiesel,
+            recommendedRegular: recommendedRegular,
+            recommendedPremium: recommendedPremium,
+            recommendedDiesel: recommendedDiesel
+    })
+
+    dataPrice = purcharseData.save()
+    
+      serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
+    } catch (error) {
+        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+    } 
+}
 exports.PlacesYPricesByWeek = async function(req, res) {
     let dataPrice = []
     let temp = []
     try {
-        
         let dataCree = await datatoprintExcel()
         const dateInint = new Date(req.query.dateInit).getTime()
         const dateFinal = new Date(req.query.dateFinal).getTime()
@@ -103,13 +129,12 @@ exports.PlacesYPricesByWeek = async function(req, res) {
            dataContent =  rangeDates(dateCreBase, dates)
            dataPrice.push({'stationName':foundCree?.companyName,'CRE':foundCree?.CRE,'prices':dataContent ,'competions':temp })
         })
-        
-
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
+
 
 exports.DownloadExcel = async function(req, res) {
 
