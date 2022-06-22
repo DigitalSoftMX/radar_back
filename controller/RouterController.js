@@ -74,38 +74,35 @@ exports.PurchaseDay = async function(req, res) {
 
     try {
 
-        const purchaseRegular =  req.body?.purchaseRegular
-        const purchasePremium =  req.body?.purchasePremium
-        const purchaseDiesel =  req.body?.purchaseDiesel
-        const recommendedRegular = req.body?.recommendedRegular
-        const recommendedPremium = req.body?.recommendedPremium
-        const recommendedDiesel = req.body?.recommendedDiesel 
-
-        const purcharseday = await Purchase.find({});
-        console.log(purcharseday);
-        if (purcharseday.length == 0) {
+        const purchaseRegular_price =  req.body?.purchaseRegular?.price
+        const purchaseRegular_date =  req.body?.purchaseRegular?.date
+        const purchasePremium_price =  req.body?.purchasePremium?.price
+        const purchasePremium_date =  req.body?.purchasePremium?.date
+        const purchaseDiesel_price =  req.body?.purchaseDiesel?.price
+        const purchaseDiesel_date =  req.body?.purchaseDiesel?.date
+        const recommendedRegular_price = req.body?.recommendedRegular?.price
+        const recommendedRegular_date = req.body?.recommendedRegular?.date
+        const recommendedPremium_price = req.body?.recommendedPremium?.price
+        const recommendedPremium_date = req.body?.recommendedPremium?.date
+        const recommendedDiesel_price = req.body?.recommendedDiesel?.price 
+        const recommendedDiesel_date = req.body?.recommendedDiesel?.date
 
         purcharseData = new Purchase({
-                purchaseRegular: purchaseRegular, 
-                purchasePremium: purchasePremium,
-                purchaseDiesel: purchaseDiesel,
-                recommendedRegular: recommendedRegular,
-                recommendedPremium: recommendedPremium,
-                recommendedDiesel: recommendedDiesel
+             purchaseRegular_price: purchaseRegular_price,
+             purchaseRegular_date: purchaseRegular_date,
+             purchasePremium_price: purchasePremium_price, 
+             purchasePremium_date: purchasePremium_date,
+             purchaseDiesel_price: purchaseDiesel_price,
+             purchaseDiesel_date: purchaseDiesel_date,
+             recommendedRegular_price: recommendedRegular_price,
+             recommendedRegular_date: recommendedRegular_date,
+             recommendedPremium_price: recommendedPremium_price,
+             recommendedPremium_date: recommendedPremium_date,
+             recommendedDiesel_price: recommendedDiesel_price,
+             recommendedDiesel_date: recommendedDiesel_date
         })
         dataPrice = await purcharseData.save()
-            
-        } else {
-            purchaseRegular = { purchaseRegular: req.body?.purchaseRegular } 
-            purchasePremium = { purchasePremium: req.body?.purchasePremium }
-            purchaseDiesel  = { purchaseDiesel: req.body?.purchaseDiesel }
-            recommendedRegular = { recommendedRegular: req.body?.recommendedRegular }
-            recommendedPremium = { recommendedPremium: req.body?.recommendedPremium }
-            recommendedDiesel = { recommendedDiesel: req.body?.recommendedDiesel }
-            
-        dataPrice =  await Purchase.findOneAndUpdate({'_id':purcharseday[0]._id},
-                {$push:purchaseRegular, purchasePremium, purchaseDiesel, recommendedRegular, recommendedPremium,recommendedDiesel},{new:true})
-        } 
+
         console.log(dataPrice);
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
