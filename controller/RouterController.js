@@ -104,8 +104,7 @@ exports.PurchaseDay = async function(req, res) {
             recommendedDiesel = { recommendedDiesel: req.body?.recommendedDiesel }
             
         dataPrice =  await Purchase.findOneAndUpdate({'_id':purcharseday[0]._id},
-                {$push:purchaseRegular, $push:purchasePremium, $push:purchaseDiesel,  
-                 $push:recommendedRegular, $push:recommendedPremium, $push:recommendedDiesel},{new:true})
+                {$push:purchaseRegular, purchasePremium, purchaseDiesel, recommendedRegular, recommendedPremium,recommendedDiesel},{new:true})
         } 
         console.log(dataPrice);
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
