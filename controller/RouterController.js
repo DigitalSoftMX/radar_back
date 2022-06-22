@@ -71,14 +71,14 @@ exports.PlacesYPricesByDay = async function(req, res) {
 }
 
 exports.PurchaseDay = async function(req, res) {
-    console.log(req);
+
     try {
-        const purchaseRegular =  req.query.data?.purchaseRegular
-        const purchasePremium =  req.query.data?.purchasePremium
-        const purchaseDiesel =  req.query.data?.purchaseDiesel
-        const recommendedRegular = req.query.data?.recommendedRegular
-        const recommendedPremium = req.query.data?.recommendedPremium
-        const recommendedDiesel = req.query.data?.recommendedDiesel       
+        const purchaseRegular =  req.body?.purchaseRegular
+        const purchasePremium =  req.body?.purchasePremium
+        const purchaseDiesel =  req.body?.purchaseDiesel
+        const recommendedRegular = req.body?.recommendedRegular
+        const recommendedPremium = req.body?.recommendedPremium
+        const recommendedDiesel = req.body?.recommendedDiesel       
         purcharseData = new Purcharse({
             purchaseRegular: purchaseRegular, 
             purchasePremium: purchasePremium,
