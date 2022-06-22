@@ -80,16 +80,31 @@ exports.PurchaseDay = async function(req, res) {
         const recommendedPremium = req.body?.recommendedPremium
         const recommendedDiesel = req.body?.recommendedDiesel 
 
-        purcharseData = new Purchase({
-            purchaseRegular: purchaseRegular, 
-            purchasePremium: purchasePremium,
-            purchaseDiesel: purchaseDiesel,
-            recommendedRegular: recommendedRegular,
-            recommendedPremium: recommendedPremium,
-            recommendedDiesel: recommendedDiesel
-    })
+        const purcharseday = Purchase.find();
+        if (purcharseday.legth == 0) {
 
-    dataPrice = await purcharseData.save()
+        purcharseData = new Purchase({
+                purchaseRegular: purchaseRegular, 
+                purchasePremium: purchasePremium,
+                purchaseDiesel: purchaseDiesel,
+                recommendedRegular: recommendedRegular,
+                recommendedPremium: recommendedPremium,
+                recommendedDiesel: recommendedDiesel
+        })
+        dataPrice = await purcharseData.save()
+            
+        } else {
+            purchaseRegular = { purchaseRegular: req.body?.purchaseRegular } 
+            purchasePremium = { purchasePremium: req.body?.purchasePremium }
+            purchaseDiesel  = { purchaseDiesel: req.body?.purchaseDiesel }
+            recommendedRegular = { recommendedRegular: req.body?.recommendedRegular }
+            recommendedPremium = { recommendedPremium: req.body?.recommendedPremium }
+            recommendedDiesel = { recommendedDiesel: req.body?.recommendedDiesel }
+            
+        dataPrice =  await Purchase.findByIdAndUpdate(purcharseday[0]._id,
+                {$push:purchaseRegular, $push:purchasePremium, $push:purchaseDiesel,  
+                 $push:recommendedRegular, $push:recommendedPremium, $push:recommendedDiesel},{new:true})
+        } 
     
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
