@@ -73,6 +73,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
 exports.PurchaseDay = async function(req, res) {
 
     try {
+
         const purchaseRegular =  req.body?.purchaseRegular
         const purchasePremium =  req.body?.purchasePremium
         const purchaseDiesel =  req.body?.purchaseDiesel
@@ -81,6 +82,7 @@ exports.PurchaseDay = async function(req, res) {
         const recommendedDiesel = req.body?.recommendedDiesel 
 
         const purcharseday = Purchase.find();
+        console.log(purcharseday);
         if (purcharseday.legth == 0) {
 
         purcharseData = new Purchase({
@@ -105,7 +107,7 @@ exports.PurchaseDay = async function(req, res) {
                 {$push:purchaseRegular, $push:purchasePremium, $push:purchaseDiesel,  
                  $push:recommendedRegular, $push:recommendedPremium, $push:recommendedDiesel},{new:true})
         } 
-    
+        console.log(dataPrice);
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
