@@ -71,7 +71,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
 }
 
 exports.PurchaseDay = async function(req, res) {
-
+    console.log(req);
     try {
         const purchaseRegular =  req.query.data?.purchaseRegular
         const purchasePremium =  req.query.data?.purchasePremium
