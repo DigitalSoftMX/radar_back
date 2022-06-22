@@ -80,7 +80,7 @@ exports.PurchaseDay = async function(req, res) {
         const recommendedPremium = req.body?.recommendedPremium
         const recommendedDiesel = req.body?.recommendedDiesel 
 
-        purcharseData = new Purcharse({
+        purcharseData = new Purchase({
             purchaseRegular: purchaseRegular, 
             purchasePremium: purchasePremium,
             purchaseDiesel: purchaseDiesel,
