@@ -83,7 +83,7 @@ exports.PurchaseDay = async function(req, res) {
 
         const purcharseday = await Purchase.find({});
         console.log(purcharseday);
-        if (purcharseday.legth == 0) {
+        if (purcharseday.length == 0) {
 
         purcharseData = new Purchase({
                 purchaseRegular: purchaseRegular, 
