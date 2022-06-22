@@ -81,7 +81,7 @@ exports.PurchaseDay = async function(req, res) {
         const recommendedPremium = req.body?.recommendedPremium
         const recommendedDiesel = req.body?.recommendedDiesel 
 
-        const purcharseday = Purchase.find();
+        const purcharseday = await Purchase.find({});
         console.log(purcharseday);
         if (purcharseday.legth == 0) {
 
