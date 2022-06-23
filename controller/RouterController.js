@@ -40,7 +40,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
     const dateActually = req.query.date
     try {
         let dataCree = await datatoprintExcel()
-        let datePurchase = await Purchase.find({
+/*         let datePurchase = await Purchase.find({
             $or: [
                 { 'purchaseRegular_date': { $lte : dateActually } },
                 { 'purchasePremium_date': { $lte : dateActually } },
@@ -49,9 +49,11 @@ exports.PlacesYPricesByDay = async function(req, res) {
                 { 'recommendedPremium_date': { $lte : dateActually } },
                 { 'recommendedDiesel_date': { $lte : dateActually } },
             ]
-        })
-        let x = datePurchase.length
-        console.log(datePurchase[datePurchase.length-1]);
+        }) */
+        console.log(dateActually);
+        let datePurchase = await Purchase.find({ 'createdAt': {$gte: dateActually}})
+        //.sort({$natural:-1})
+        console.log(datePurchase[datePurchase.length -1])
         stationscompetitions.forEach(async station => {
             const foundCree =  dataCree.find(element => element.CRE == station.cre_id)
             //console.log(foundCree);
