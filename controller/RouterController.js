@@ -41,7 +41,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
     try {
         let dataCree = await datatoprintExcel()
         let datePurchase = await Purchase.find({
-            $and: [
+            $or: [
                 { purchaseRegular_date: { $lte : dateActually } },
                 { purchasePremium_date: { $lte : dateActually } },
                 { purchaseDiesel_date: { $lte : dateActually } },
@@ -49,7 +49,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
                 { recommendedPremium_date: { $lte : dateActually } },
                 { recommendedDiesel_date: { $lte : dateActually } },
             ]
-        }).sort({$natural:-1})
+        })
         console.log(datePurchase[0]);
         stationscompetitions.forEach(async station => {
             const foundCree =  dataCree.find(element => element.CRE == station.cre_id)
