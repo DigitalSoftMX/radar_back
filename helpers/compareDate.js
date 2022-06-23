@@ -3,9 +3,10 @@ function compareDate(array, dateActually) {
     array.forEach(element => {
         if (element.date == dateActually) {
             dateArray.push(element)
-        } else {
+        } 
+/*         else {
             console.log('fechas diferentes');
-        }
+        } */
     })
     return dateArray
 }

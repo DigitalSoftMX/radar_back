@@ -49,8 +49,8 @@ exports.PlacesYPricesByDay = async function(req, res) {
                 { recommendedPremium_date: { $lt : dateActually } },
                 { recommendedDiesel_date: { $lt : dateActually } },
             ]
-        })
-        console.log(datePurchase);
+        }).sort({$natural:-1})
+        console.log(datePurchase[0]);
         stationscompetitions.forEach(async station => {
             const foundCree =  dataCree.find(element => element.CRE == station.cre_id)
             //console.log(foundCree);
