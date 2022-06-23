@@ -42,12 +42,12 @@ exports.PlacesYPricesByDay = async function(req, res) {
         let dataCree = await datatoprintExcel()
         let datePurchase = await Purchase.find({
             $and: [
-                { purchaseRegular_date: { $lt : dateActually } },
-                { purchasePremium_date: { $lt : dateActually } },
-                { purchaseDiesel_date: { $lt : dateActually } },
-                { recommendedRegular_date: { $lt : dateActually } },
-                { recommendedPremium_date: { $lt : dateActually } },
-                { recommendedDiesel_date: { $lt : dateActually } },
+                { purchaseRegular_date: { $lte : dateActually } },
+                { purchasePremium_date: { $lte : dateActually } },
+                { purchaseDiesel_date: { $lte : dateActually } },
+                { recommendedRegular_date: { $lte : dateActually } },
+                { recommendedPremium_date: { $lte : dateActually } },
+                { recommendedDiesel_date: { $lte : dateActually } },
             ]
         }).sort({$natural:-1})
         console.log(datePurchase[0]);
@@ -74,12 +74,6 @@ exports.PlacesYPricesByDay = async function(req, res) {
             'purchasePrice':datePurchase[0]
             })
         });
-/*         function obtenerInicioYFinSemana(fecha) {
-            return {
-                inicio: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() - fecha.getDay() + 1),
-                fin: new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate() + 6 - fecha.getDay()),
-            }
-        } */
       serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error) 
