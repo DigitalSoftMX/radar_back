@@ -85,44 +85,73 @@ exports.PlacesYPricesByDay = async function(req, res) {
 }
 
 exports.PurchaseDay = async function(req, res) {
-
-    try {
-
-        const purchaseRegular_price =  req.body?.purchaseRegular?.price
-        const purchaseRegular_date =  req.body?.purchaseRegular?.date
-        const purchasePremium_price =  req.body?.purchasePremium?.price
-        const purchasePremium_date =  req.body?.purchasePremium?.date
-        const purchaseDiesel_price =  req.body?.purchaseDiesel?.price
-        const purchaseDiesel_date =  req.body?.purchaseDiesel?.date
-        const recommendedRegular_price = req.body?.recommendedRegular?.price
-        const recommendedRegular_date = req.body?.recommendedRegular?.date
-        const recommendedPremium_price = req.body?.recommendedPremium?.price
-        const recommendedPremium_date = req.body?.recommendedPremium?.date
-        const recommendedDiesel_price = req.body?.recommendedDiesel?.price 
-        const recommendedDiesel_date = req.body?.recommendedDiesel?.date
-
-        purcharseData = new Purchase({
-             purchaseRegular_price: purchaseRegular_price,
-             purchaseRegular_date: purchaseRegular_date,
-             purchasePremium_price: purchasePremium_price, 
-             purchasePremium_date: purchasePremium_date,
-             purchaseDiesel_price: purchaseDiesel_price,
-             purchaseDiesel_date: purchaseDiesel_date,
-             recommendedRegular_price: recommendedRegular_price,
-             recommendedRegular_date: recommendedRegular_date,
-             recommendedPremium_price: recommendedPremium_price,
-             recommendedPremium_date: recommendedPremium_date,
-             recommendedDiesel_price: recommendedDiesel_price,
-             recommendedDiesel_date: recommendedDiesel_date,
-             status: req.body?.stat
-        })
-        dataPrice = await purcharseData.save()
-
-        console.log(dataPrice);
-      serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
-    } catch (error) {
-        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
-    } 
+    if ( Object.entries(req.body).length == 0) {
+        let datePurchase = await Purchase.find()
+        newDatePurchase = datePurchase[datePurchase.length -1]
+        console.log(newDatePurchase);
+        try {
+            
+            purcharseData = new Purchase({
+                purchaseRegular_price: newDatePurchase.purchaseRegular_price,
+                purchaseRegular_date: newDatePurchase.purchaseRegular_date,
+                purchasePremium_price: newDatePurchase.purchasePremium_price, 
+                purchasePremium_date: newDatePurchase.purchasePremium_date,
+                purchaseDiesel_price: newDatePurchase.purchaseDiesel_price,
+                purchaseDiesel_date: newDatePurchase.purchaseDiesel_date,
+                recommendedRegular_price: newDatePurchase.recommendedRegular_price,
+                recommendedRegular_date: newDatePurchase.recommendedRegular_date,
+                recommendedPremium_price: newDatePurchase.recommendedPremium_price,
+                recommendedPremium_date: newDatePurchase.recommendedPremium_date,
+                recommendedDiesel_price: newDatePurchase.recommendedDiesel_price,
+                recommendedDiesel_date: newDatePurchase.recommendedDiesel_date,
+                status: req.body?.status
+           })
+           dataPrice = await purcharseData.save()
+   
+           console.log(dataPrice);
+         serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
+        } catch (error) {
+            serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+        }
+    } else {
+        try {
+    
+            const purchaseRegular_price =  req.body?.purchaseRegular?.price
+            const purchaseRegular_date =  req.body?.purchaseRegular?.date
+            const purchasePremium_price =  req.body?.purchasePremium?.price
+            const purchasePremium_date =  req.body?.purchasePremium?.date
+            const purchaseDiesel_price =  req.body?.purchaseDiesel?.price
+            const purchaseDiesel_date =  req.body?.purchaseDiesel?.date
+            const recommendedRegular_price = req.body?.recommendedRegular?.price
+            const recommendedRegular_date = req.body?.recommendedRegular?.date
+            const recommendedPremium_price = req.body?.recommendedPremium?.price
+            const recommendedPremium_date = req.body?.recommendedPremium?.date
+            const recommendedDiesel_price = req.body?.recommendedDiesel?.price 
+            const recommendedDiesel_date = req.body?.recommendedDiesel?.date
+    
+            purcharseData = new Purchase({
+                 purchaseRegular_price: purchaseRegular_price,
+                 purchaseRegular_date: purchaseRegular_date,
+                 purchasePremium_price: purchasePremium_price, 
+                 purchasePremium_date: purchasePremium_date,
+                 purchaseDiesel_price: purchaseDiesel_price,
+                 purchaseDiesel_date: purchaseDiesel_date,
+                 recommendedRegular_price: recommendedRegular_price,
+                 recommendedRegular_date: recommendedRegular_date,
+                 recommendedPremium_price: recommendedPremium_price,
+                 recommendedPremium_date: recommendedPremium_date,
+                 recommendedDiesel_price: recommendedDiesel_price,
+                 recommendedDiesel_date: recommendedDiesel_date,
+                 status: req.body?.stat
+            })
+            dataPrice = await purcharseData.save()
+    
+            console.log(dataPrice);
+          serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
+        } catch (error) {
+            serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+        } 
+    }
 }
 exports.PlacesYPricesByWeek = async function(req, res) {
     let dataPrice = []
