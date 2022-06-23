@@ -50,7 +50,12 @@ const purchaseSchema = new Schema({
     recommendedDiesel_date:{
         type: String,
         trim: true,
+    },
+    status:{
+        type:Boolean,
+        default: false
     }
+
 }, { timestamps: {}})
 
 module.exports = mongoose.model('purchase', purchaseSchema)
