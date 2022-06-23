@@ -112,7 +112,7 @@ exports.PurchaseDay = async function(req, res) {
              recommendedPremium_date: recommendedPremium_date,
              recommendedDiesel_price: recommendedDiesel_price,
              recommendedDiesel_date: recommendedDiesel_date,
-             status: req.body?.status
+             status: req.body?.stat
         })
         dataPrice = await purcharseData.save()
 
