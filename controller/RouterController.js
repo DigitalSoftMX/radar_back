@@ -88,31 +88,33 @@ exports.PurchaseDay = async function(req, res) {
     if ( Object.entries(req.body).length == 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
-        console.log(newDatePurchase);
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
         try {
-            
-            purcharseData = new Purchase({
-                purchaseRegular_price: newDatePurchase.purchaseRegular_price,
-                purchaseRegular_date: newDatePurchase.purchaseRegular_date,
-                purchasePremium_price: newDatePurchase.purchasePremium_price, 
-                purchasePremium_date: newDatePurchase.purchasePremium_date,
-                purchaseDiesel_price: newDatePurchase.purchaseDiesel_price,
-                purchaseDiesel_date: newDatePurchase.purchaseDiesel_date,
-                recommendedRegular_price: newDatePurchase.recommendedRegular_price,
-                recommendedRegular_date: newDatePurchase.recommendedRegular_date,
-                recommendedPremium_price: newDatePurchase.recommendedPremium_price,
-                recommendedPremium_date: newDatePurchase.recommendedPremium_date,
-                recommendedDiesel_price: newDatePurchase.recommendedDiesel_price,
-                recommendedDiesel_date: newDatePurchase.recommendedDiesel_date,
-                status: req.body?.status
-           })
-           dataPrice = await purcharseData.save()
-   
-           console.log(dataPrice);
-         serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
-        } catch (error) {
-            serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
-        }
+            if (getToday2 != getToday) {
+                purcharseData = new Purchase({
+                    purchaseRegular_price: newDatePurchase.purchaseRegular_price,
+                    purchaseRegular_date: newDatePurchase.purchaseRegular_date,
+                    purchasePremium_price: newDatePurchase.purchasePremium_price, 
+                    purchasePremium_date: newDatePurchase.purchasePremium_date,
+                    purchaseDiesel_price: newDatePurchase.purchaseDiesel_price,
+                    purchaseDiesel_date: newDatePurchase.purchaseDiesel_date,
+                    recommendedRegular_price: newDatePurchase.recommendedRegular_price,
+                    recommendedRegular_date: newDatePurchase.recommendedRegular_date,
+                    recommendedPremium_price: newDatePurchase.recommendedPremium_price,
+                    recommendedPremium_date: newDatePurchase.recommendedPremium_date,
+                    recommendedDiesel_price: newDatePurchase.recommendedDiesel_price,
+                    recommendedDiesel_date: newDatePurchase.recommendedDiesel_date,
+                    status: req.body?.status
+               })
+               dataPrice = await purcharseData.save()
+            } else {
+                dataPrice = newDatePurchase
+                console.log('precio repetidos');
+            }
+        serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
+       } catch (error) {
+           serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+       }
     } else {
         try {
     
