@@ -33,14 +33,14 @@ async function placesData() {
                 let findStation = await Prices.find({'stationId': stationFind[0]._id})
                     const i = findStation[0].prices.length -1;
                     if (station.price.regular != findStation[0].prices[i]?.regular ||  station.price.premium != findStation[0].prices[i]?.premium || station.price.diesel != findStation[0].prices[i]?.diesel ) {         
-                        console.log('precios unicos') 
+                        //console.log('precios unicos') 
                         prices = {
                             prices: Object.assign({'regular':station?.price?.regular, 'premium':station?.price?.premium, 'diesel':station?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }else if(getToday != findStation[0].prices[i]?.date) {
-                        console.log('fechas unicas') 
+                        //console.log('fechas unicas') 
                         prices = {
                             prices: Object.assign({'regular':station?.price?.regular, 'premium':station?.price?.premium, 'diesel':station?.price?.diesel},{'date': today.getFullYear() + "-" + 
                             `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
@@ -48,7 +48,7 @@ async function placesData() {
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }
                     else {    
-                        console.log('precios y fechas repetidos')                
+                        //console.log('precios y fechas repetidos')                
                     } 
             } 
         }

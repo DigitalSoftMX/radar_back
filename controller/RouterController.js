@@ -19,7 +19,7 @@ exports.PlacesYPrices = async function(req, res) {
     try {
         z = await  placesData()
         console.log(z);
-      serveResp(z, 'Se creó satisfactoriamente la categoria', 201, res)
+      serveResp('OK', 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
