@@ -1,4 +1,4 @@
-var https = require('https')
+var https = require('http')
 var Q = require('q')
 var xml2js = require('xml2js')
 var parser = new xml2js.Parser()
