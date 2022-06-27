@@ -1,5 +1,10 @@
 const{ Place } = require("../function/place")
 const{ Price } = require("../function/price")
+const Prices = require("../model/Prices");
+const Station = require("../model/Station")
+const today = new Date()
+const getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
+
 let placeRepo = []
 let placePrice = []
 let priceRepo = []
@@ -57,6 +62,49 @@ async function reductionJson() {
                         diesel = ele?._
                     }
                 }
+                let stationFind = await Station.find({'CRE':placeRepo[i]?.cre_id}) 
+                if (stationFind.length == 0) {
+                    stations = new Station({
+                        'companyName':placeRepo[i]?.name,
+                        'CRE': placeRepo[i]?.cre_id,
+                    })
+                    idStation = await stations.save()
+                    priceStation = new Prices({
+                         'prices':[{
+                             'regular':regular,
+                             'premium':premium, 
+                             'diesel':diesel,
+                             'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate(),
+                             'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds(),
+                         }],
+                             'stationId': idStation._id
+                     })
+                     priceStation2 = await priceStation.save()
+                     prices = {prices: priceStation2._id}
+                     let x = await Station.findOneAndUpdate({'CRE':placeRepo[i]?.cre_id}, {$push: prices},{new:true})
+                } else {
+                    let findStation = await Prices.find({'stationId': stationFind[0]._id})
+                    const s = findStation[0].prices.length - 1;
+                    if (regular != findStation[0].prices[s]?.regular || premium != findStation[0].prices[s]?.premium || diesel != findStation[0].prices[s]?.diesel ) {         
+                        console.log('precios unicos') 
+                        prices = {
+                            prices: Object.assign({'regular':regular, 'premium':premium, 'diesel':diesel},{'date': today.getFullYear() + "-" + 
+                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                        }
+                            await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
+                    }else if(getToday != findStation[0].prices[s]?.date) {
+                        console.log('fechas unicas') 
+                        prices = {
+                            prices: Object.assign({'regular':regular, 'premium':premium, 'diesel':diesel},{'date': today.getFullYear() + "-" + 
+                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                        }
+                            await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
+                    }
+                    else {    
+                        console.log('precios y fechas repetidos')                
+                    } 
+                }
+
                 placePrice.push({
                     'cre_id' : placeRepo[i]?.cre_id,
                     'name' : placeRepo[i]?.name,

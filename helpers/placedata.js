@@ -3,11 +3,13 @@ const Prices = require("../model/Prices");
 const Station = require("../model/Station");
 const today = new Date();
 var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
+const fs =require('fs')
+
 
 async function placesData() {
     try {        
         let dataJson = await placesReposta()
-        for (let i = 0; i < dataJson.length; i++) {
+/*          for (let i = 0; i < dataJson.length; i++) {
             const station = dataJson[i];
             let stationFind = await Station.find({'CRE':station?.cre_id})       
              if (stationFind.length == 0) {
@@ -51,7 +53,7 @@ async function placesData() {
                         //console.log('precios y fechas repetidos')                
                     } 
             } 
-        }
+        } */
 /*           dataJson.forEach(async station => {
             let stationFind = await Station.find({'CRE':station?.cre_id})   
             console.log(stationFind.length)       
