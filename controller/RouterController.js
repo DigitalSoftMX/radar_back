@@ -151,11 +151,75 @@ exports.PurchaseDay = async function(req, res) {
                 })
                 dataPrice = await purcharseData.save()
             } else {
+                console.log(req.body);
+                for (let i = 0; i < datePurchase.length; i++) {
+                    const element = datePurchase[i]
+                    const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + element.createdAt.getDate()
+                    console.log(dateRow)
+                    if (req.body.purchaseRegular.date == dateRow) {
+                        try {                          
+                            let x = await Purchase.updateMany({'createdAt':{$gte:dateRow}},
+                            {'purchaseRegular_price':req.body.purchaseRegular.price, 'purchaseRegular_date':req.body.purchaseRegular.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                            console.log(x);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body.purchasePremium.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'purchasePremium_price':req.body.purchasePremium.price,'purchasePremium_date':req.body.purchasePremium.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body.purchaseDiesel.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'purchaseDiesel_price':req.body.purchaseDiesel.price,'purchaseDiesel_date':req.body.purchaseDiesel.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body.recommendedRegular.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedPremium_price':req.body.recommendedRegular.price,'recommendedRegular_date':req.body.recommendedRegular.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body.recommendedPremium.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedRegular_price':req.body.recommendedPremium.price,'recommendedPremium_date':req.body.recommendedPremium.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body.recommendedDiesel.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedDiesel_price':req.body.recommendedDiesel.price, 'recommendedDiesel_date':req.body.recommendedDiesel.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) }) 
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    } else {
+                        console.log('nada :C');
+                    }  
+
+                }
                 dataPrice = newDatePurchase
             }
           serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
         } catch (error) {
-            serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+            serveResp( error, 'Se creó satisfactoriamente la categoria con errior', 201, res)
         } 
     }
 }
