@@ -85,7 +85,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
 }
 
 exports.PurchaseDay = async function(req, res) {
-    console.log(req.body);
+    console.log(Object.entries(req.body).length);
     if ( Object.entries(req.body).length == 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
