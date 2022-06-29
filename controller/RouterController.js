@@ -220,6 +220,7 @@ exports.PurchaseDay = async function(req, res) {
             }
           serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
         } catch (error) {
+            console.log(error);
             serveResp( error, 'Se creó satisfactoriamente la categoria con errior', 201, res)
         } 
     }
