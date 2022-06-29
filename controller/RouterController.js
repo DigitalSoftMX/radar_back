@@ -156,7 +156,7 @@ exports.PurchaseDay = async function(req, res) {
                 for (let i = 0; i < datePurchase.length; i++) {
                     const element = datePurchase[i]
                     const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + element.createdAt.getDate()
-                    console.log(dateRow)
+                    console.log('element DB:',dateRow)
                     if (req.body.purchaseRegular?.date == dateRow) {
                         try {                          
                             let x = await Purchase.updateMany({'createdAt':{$gte:dateRow}},
