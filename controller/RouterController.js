@@ -157,7 +157,7 @@ exports.PurchaseDay = async function(req, res) {
                     const element = datePurchase[i]
                     const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + element.createdAt.getDate()
                     console.log(dateRow)
-                    if (req.body.purchaseRegular.date == dateRow) {
+                    if (req.body.purchaseRegular?.date == dateRow) {
                         try {                          
                             let x = await Purchase.updateMany({'createdAt':{$gte:dateRow}},
                             {'purchaseRegular_price':req.body.purchaseRegular.price, 'purchaseRegular_date':req.body.purchaseRegular.date},
@@ -167,7 +167,7 @@ exports.PurchaseDay = async function(req, res) {
                             console.log(error);
                         }
                     }
-                    if(req.body.purchasePremium.date == dateRow){
+                    if(req.body?.purchasePremium?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
                             {'purchasePremium_price':req.body.purchasePremium.price,'purchasePremium_date':req.body.purchasePremium.date},
@@ -176,7 +176,7 @@ exports.PurchaseDay = async function(req, res) {
                             console.log(error);
                         }
                     }
-                    if(req.body.purchaseDiesel.date == dateRow){
+                    if(req.body?.purchaseDiesel?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
                             {'purchaseDiesel_price':req.body.purchaseDiesel.price,'purchaseDiesel_date':req.body.purchaseDiesel.date},
@@ -185,7 +185,7 @@ exports.PurchaseDay = async function(req, res) {
                             console.log(error);
                         }
                     }
-                    if(req.body.recommendedRegular.date == dateRow){
+                    if(req.body?.recommendedRegular?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
                             {'recommendedPremium_price':req.body.recommendedRegular.price,'recommendedRegular_date':req.body.recommendedRegular.date},
@@ -194,7 +194,7 @@ exports.PurchaseDay = async function(req, res) {
                             console.log(error);
                         }
                     }
-                    if(req.body.recommendedPremium.date == dateRow){
+                    if(req.body?.recommendedPremium?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
                             {'recommendedRegular_price':req.body.recommendedPremium.price,'recommendedPremium_date':req.body.recommendedPremium.date},
@@ -203,7 +203,7 @@ exports.PurchaseDay = async function(req, res) {
                             console.log(error);
                         }
                     }
-                    if(req.body.recommendedDiesel.date == dateRow){
+                    if(req.body?.recommendedDiesel?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
                             {'recommendedDiesel_price':req.body.recommendedDiesel.price, 'recommendedDiesel_date':req.body.recommendedDiesel.date},
