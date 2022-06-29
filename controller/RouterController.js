@@ -86,7 +86,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
 
 exports.PurchaseDay = async function(req, res) {
     console.log(Object.entries(req.body).length);
-    if ( Object.entries(req.body).length == 0) {
+    if ( Object.entries(req.body).length === 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
