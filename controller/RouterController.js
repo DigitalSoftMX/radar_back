@@ -85,6 +85,7 @@ exports.PlacesYPricesByDay = async function(req, res) {
 }
 
 exports.PurchaseDay = async function(req, res) {
+    console.log(req.body);
     if ( Object.entries(req.body).length == 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
@@ -119,7 +120,6 @@ exports.PurchaseDay = async function(req, res) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
-        console.log(getToday2);
         try {
             if (getToday2 != getToday) {
                 console.log(req.body)
@@ -153,7 +153,6 @@ exports.PurchaseDay = async function(req, res) {
                 })
                 dataPrice = await purcharseData.save()
             } else {
-                console.log(req.body);
                 for (let i = 0; i < datePurchase.length; i++) {
                     const element = datePurchase[i]
                     const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + element.createdAt.getDate()
