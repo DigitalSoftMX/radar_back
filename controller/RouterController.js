@@ -121,6 +121,7 @@ exports.PurchaseDay = async function(req, res) {
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
         try {
             if (getToday2 != getToday) {
+                console.log(req.body)
                 const purchaseRegular_price =  req.body?.purchaseRegular?.price
                 const purchaseRegular_date =  req.body?.purchaseRegular?.date
                 const purchasePremium_price =  req.body?.purchasePremium?.price
