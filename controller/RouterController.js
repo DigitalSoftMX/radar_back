@@ -188,7 +188,7 @@ exports.PurchaseDay = async function(req, res) {
                     if(req.body?.recommendedRegular?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
-                            {'recommendedPremium_price':req.body.recommendedRegular.price,'recommendedRegular_date':req.body.recommendedRegular.date},
+                            {'recommendedRegular_price':req.body.recommendedRegular.price,'recommendedRegular_date':req.body.recommendedRegular.date},
                             {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
                         } catch (error) {
                             console.log(error);
@@ -197,7 +197,7 @@ exports.PurchaseDay = async function(req, res) {
                     if(req.body?.recommendedPremium?.date == dateRow){
                         try {
                             await Purchase.updateMany({'createdAt': {$gte:dateRow}},
-                            {'recommendedRegular_price':req.body.recommendedPremium.price,'recommendedPremium_date':req.body.recommendedPremium.date},
+                            {'recommendedPremium_price':req.body.recommendedPremium.price,'recommendedPremium_date':req.body.recommendedPremium.date},
                             {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
                         } catch (error) {
                             console.log(error);
