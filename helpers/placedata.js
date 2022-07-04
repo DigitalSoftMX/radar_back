@@ -3,7 +3,7 @@ const Prices = require("../model/Prices");
 const Station = require("../model/Station");
 const station = require("./station")
 const today = new Date();
-var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
+var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + `${(today.getDate()+1)}`.padStart(2,'0')
 
 async function placesData() {
     try {        
@@ -23,7 +23,7 @@ async function placesData() {
                         'regular':foundCree?.price?.regular,
                         'premium':foundCree?.price?.premium, 
                         'diesel':foundCree?.price?.diesel,
-                        'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + today.getDate(),
+                        'date': today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') + "-" + `${(today.getDate()+1)}`.padStart(2,'0'),
                         'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds(),
                     }],
                         'stationId': idStation._id
@@ -38,14 +38,14 @@ async function placesData() {
                         console.log('precios unicos') 
                         prices = {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
-                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + `${(today.getDate()+1)}`.padStart(2,'0'),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }else if(getToday != findStation[0].prices[i]?.date) {
                         console.log('fechas unicas') 
                         prices = {
                             prices: Object.assign({'regular':foundCree?.price?.regular, 'premium':foundCree?.price?.premium, 'diesel':foundCree?.price?.diesel},{'date': today.getFullYear() + "-" + 
-                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate(),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
+                            `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + `${(today.getDate()+1)}`.padStart(2,'0'),'time': today.getHours()+":"+today.getMinutes()+':'+today.getSeconds() })
                         }
                             await Prices.findOneAndUpdate({'stationId': stationFind[0]._id},{$push:prices},{new:true})
                     }

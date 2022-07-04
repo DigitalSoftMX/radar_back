@@ -119,7 +119,7 @@ exports.PurchaseDay = async function(req, res) {
     } else {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
-        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(element.createdAt.getDate()+1)}`.padStart(2,'0')
         try {
             if (getToday2 != getToday) {
                 console.log(req.body)
@@ -155,7 +155,7 @@ exports.PurchaseDay = async function(req, res) {
             } else {
                 for (let i = 0; i < datePurchase.length; i++) {
                     const element = datePurchase[i]
-                    const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + element.createdAt.getDate()
+                    const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(element.createdAt.getDate()+1)}`.padStart(2,'0')
                     console.log('element DB:',dateRow)
                     if (req.body.purchaseRegular?.date == dateRow) {
                         try {                          
@@ -238,7 +238,7 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         console.log(diff/(1000*60*60*24));
         const dates = []
         for (let dateRange = 0; dateRange <= (diff/(1000*60*60*24)+1); dateRange++) {
-            const dateRangeUp = dateRow.getFullYear() + "-" + `${(dateRow.getMonth()+1)}`.padStart(2,'0') +"-" + (dateRow.getDate()+ dateRange)
+            const dateRangeUp = dateRow.getFullYear() + "-" + `${(dateRow.getMonth()+1)}`.padStart(2,'0') +"-" + `${(dateRow.getDate()+1)}`.padStart(2,'0')
             console.log(dateRange+'-.'+dateRangeUp)
             dates.push(dateRangeUp)
         }
