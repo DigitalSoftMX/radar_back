@@ -1,4 +1,5 @@
 const{ placesData } = require("../helpers/placedata")
+const { reductionJson } = require("../helpers/reductionJson")
 const serveResp = require("../function/serveResp")
 const { datatoprintExcel } = require("../helpers/dataExcel")
 const stationscompetitions = require("../helpers/stationscompetitions")
@@ -15,14 +16,13 @@ var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,
 //!            MEDIA 
 //!==============================================================================================
 exports.PlacesYPrices = async function(req, res) {
-    const error = { error: 'La request no tiene data'}
     try {
-        z = await  placesData()
+        z = await  reductionJson()
         console.log(z);
-      serveResp('OK', 'Se creó satisfactoriamente la categoria', 201, res)
+      serveResp('OK', null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
-        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+        serveResp(null, error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
 exports.PlacesYPricesExcel = async function(req, res) {
@@ -35,7 +35,6 @@ exports.PlacesYPricesExcel = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
-
 exports.PlacesYPricesByDay = async function(req, res) {
     dataPrice = []
     const dateActually = req.query.date
@@ -84,7 +83,6 @@ exports.PlacesYPricesByDay = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
-
 exports.PurchaseDay = async function(req, res) {
     if ( Object.entries(req.body).length == 0) {
         let datePurchase = await Purchase.find()
@@ -228,8 +226,6 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
-
-
 exports.DownloadExcel = async function(req, res) {
 
  /*    try {
