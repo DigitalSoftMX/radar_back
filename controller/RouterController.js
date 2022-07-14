@@ -119,7 +119,7 @@ exports.PurchaseDay = async function(req, res) {
     } else {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
-        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(element.createdAt.getDate()+1)}`.padStart(2,'0')
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(newDatePurchase.createdAt.getDate()+1)}`.padStart(2,'0')
         try {
             if (getToday2 != getToday) {
                 console.log(req.body)
