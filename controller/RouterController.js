@@ -89,7 +89,7 @@ exports.PurchaseDay = async function(req, res) {
     if ( Object.entries(req.body).length === 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
-        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(newDatePurchase.createdAt.getDate()+1)}`.padStart(2,'0')
         try {
             if (getToday2 != getToday) {
                 purcharseData = new Purchase({
