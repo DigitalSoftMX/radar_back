@@ -99,8 +99,7 @@ async function placesData() {
                         console.log('precios y fechas repetidos')                
                     } 
             } 
-        })  */
-         
+        })  */   
         setInterval(placesData, 3600000)
         console.log('ARCHIVO DE LA CRE EJECUTADO');
         //setInterval(placesData, 60000)

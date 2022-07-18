@@ -8,7 +8,7 @@ const rangeDates = require("../helpers/rangeDates")
 const Purchase = require('../model/Purchase')
 let dataPrice = []
 let temp = []
-const today = new Date();
+const today = new Date()
 var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
