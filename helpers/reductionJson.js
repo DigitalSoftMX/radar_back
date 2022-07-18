@@ -25,7 +25,6 @@ async function reductionJson() {
       
         return acc
       }, {})
-
       for (const [key, value] of Object.entries(usersById)) {
         x = []
         for (let i = 0; i < value.length; i++) {

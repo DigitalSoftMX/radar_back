@@ -1,5 +1,8 @@
 const{ placesData } = require("../helpers/placedata")
+<<<<<<< HEAD
 const { reductionJson } = require("../helpers/reductionJson")
+=======
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
 const serveResp = require("../function/serveResp")
 const { datatoprintExcel } = require("../helpers/dataExcel")
 const stationscompetitions = require("../helpers/stationscompetitions")
@@ -8,7 +11,11 @@ const rangeDates = require("../helpers/rangeDates")
 const Purchase = require('../model/Purchase')
 let dataPrice = []
 let temp = []
+<<<<<<< HEAD
 const today = new Date()
+=======
+const today = new Date();
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
 var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
@@ -17,12 +24,20 @@ var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,
 //!==============================================================================================
 exports.PlacesYPrices = async function(req, res) {
     try {
+<<<<<<< HEAD
         z = await  reductionJson()
         console.log(z);
       serveResp('OK', null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
         serveResp(null, error, 'Se creó satisfactoriamente la categoria', 201, res)
+=======
+        z = await  placesData()
+      serveResp(z, 'Se creó satisfactoriamente la categoria', 201, res)
+    } catch (error) {
+        console.log(error); 
+        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
     } 
 }
 exports.PlacesYPricesExcel = async function(req, res) {
@@ -35,6 +50,10 @@ exports.PlacesYPricesExcel = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
 exports.PlacesYPricesByDay = async function(req, res) {
     dataPrice = []
     const dateActually = req.query.date
@@ -83,8 +102,15 @@ exports.PlacesYPricesByDay = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
+<<<<<<< HEAD
 exports.PurchaseDay = async function(req, res) {
     if ( Object.entries(req.body).length == 0) {
+=======
+
+exports.PurchaseDay = async function(req, res) {
+    console.log(Object.entries(req.body).length);
+    if ( Object.entries(req.body).length === 0) {
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
@@ -117,9 +143,16 @@ exports.PurchaseDay = async function(req, res) {
     } else {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
+<<<<<<< HEAD
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
         try {
             if (getToday2 != getToday) {
+=======
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(newDatePurchase.createdAt.getDate()+1)}`.padStart(2,'0')
+        try {
+            if (getToday2 != getToday) {
+                console.log(req.body)
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
                 const purchaseRegular_price =  req.body?.purchaseRegular?.price
                 const purchaseRegular_date =  req.body?.purchaseRegular?.date
                 const purchasePremium_price =  req.body?.purchasePremium?.price
@@ -150,6 +183,7 @@ exports.PurchaseDay = async function(req, res) {
                 })
                 dataPrice = await purcharseData.save()
             } else {
+<<<<<<< HEAD
                 console.log(req.body);
                 for (let i = 0; i < datePurchase.length; i++) {
                     const element = datePurchase[i]
@@ -177,12 +211,79 @@ exports.PurchaseDay = async function(req, res) {
                     } else {
                         console.log('nada :C');
                     }  */
+=======
+                for (let i = 0; i < datePurchase.length; i++) {
+                    const element = datePurchase[i]
+                    const dateRow = element.createdAt.getFullYear() + "-" + `${(element.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(element.createdAt.getDate()+1)}`.padStart(2,'0')
+                    console.log('element DB:',dateRow)
+                    if (req.body.purchaseRegular?.date == dateRow) {
+                        try {                          
+                            let x = await Purchase.updateMany({'createdAt':{$gte:dateRow}},
+                            {'purchaseRegular_price':req.body.purchaseRegular.price, 'purchaseRegular_date':req.body.purchaseRegular.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                            console.log(x);
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body?.purchasePremium?.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'purchasePremium_price':req.body.purchasePremium.price,'purchasePremium_date':req.body.purchasePremium.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body?.purchaseDiesel?.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'purchaseDiesel_price':req.body.purchaseDiesel.price,'purchaseDiesel_date':req.body.purchaseDiesel.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body?.recommendedRegular?.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedRegular_price':req.body.recommendedRegular.price,'recommendedRegular_date':req.body.recommendedRegular.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body?.recommendedPremium?.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedPremium_price':req.body.recommendedPremium.price,'recommendedPremium_date':req.body.recommendedPremium.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) })             
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    }
+                    if(req.body?.recommendedDiesel?.date == dateRow){
+                        try {
+                            await Purchase.updateMany({'createdAt': {$gte:dateRow}},
+                            {'recommendedDiesel_price':req.body.recommendedDiesel.price, 'recommendedDiesel_date':req.body.recommendedDiesel.date},
+                            {new:true, multi: true, $inc: { count: 1 } }).then((res) => { console.log(res) }) 
+                        } catch (error) {
+                            console.log(error);
+                        }
+                    } else {
+                        console.log('nada :C');
+                    }  
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
 
                 }
                 dataPrice = newDatePurchase
             }
           serveResp(dataPrice, 'Se creó satisfactoriamente la categoria', 201, res)
         } catch (error) {
+<<<<<<< HEAD
+=======
+            console.log(error);
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
             serveResp( error, 'Se creó satisfactoriamente la categoria con errior', 201, res)
         } 
     }
@@ -200,7 +301,11 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         console.log(diff/(1000*60*60*24));
         const dates = []
         for (let dateRange = 0; dateRange <= (diff/(1000*60*60*24)+1); dateRange++) {
+<<<<<<< HEAD
             const dateRangeUp = dateRow.getFullYear() + "-" + `${(dateRow.getMonth()+1)}`.padStart(2,'0') +"-" + (dateRow.getDate()+ dateRange)
+=======
+            const dateRangeUp = dateRow.getFullYear() + "-" + `${(dateRow.getMonth()+1)}`.padStart(2,'0') +"-" + `${(dateRow.getDate()+1)}`.padStart(2,'0')
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
             console.log(dateRange+'-.'+dateRangeUp)
             dates.push(dateRangeUp)
         }
@@ -226,6 +331,11 @@ exports.PlacesYPricesByWeek = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
 exports.DownloadExcel = async function(req, res) {
 
  /*    try {

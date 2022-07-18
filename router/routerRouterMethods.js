@@ -18,5 +18,4 @@ app.get('/pricesByDay/',routerController.PlacesYPricesByDay)
 app.get('/pricesByWeek/',routerController.PlacesYPricesByWeek)
 app.post('/purchaseDay/',routerController.PurchaseDay)
 
-
 module.exports = app
