@@ -5,7 +5,9 @@
 const http = require('http'),
  express = require('express'),
  mongoose = require('mongoose'),
- bodyParser = require('body-parser')
+ bodyParser = require('body-parser'),
+ cors = require('cors')
+
 //===============================================================================================
 //            CONFIG
 //===============================================================================================
@@ -13,16 +15,23 @@ const http = require('http'),
 const { PORT, URI } = require('./config/config')
 const app = express()
 
+app.use(cors())
 //===============================================================================================
 //            HEADER REQUESTS
 //===============================================================================================
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+/*     res.header('Access-Control-Allow-Origin', '*');
     res.header("Access-Control-Allow-Headers", "Authorization,Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
-    next();
+    next(); */
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', '*'); // If needed
+    res.header('Access-Control-Allow-Headers', '*'); // If needed
+    res.header('Access-Control-Allow-Credentials', true); // If needed
+    next()
+
 });
 
 app.use(bodyParser.urlencoded({limit: '50mb', parameterLimit: 100000, extended: true}));
