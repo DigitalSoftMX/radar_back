@@ -1,8 +1,14 @@
 const { reductionJson } = require("../helpers/reductionJson")
+<<<<<<< HEAD
+
+async function placesReposta() {
+    let Stations = await reductionJson()
+=======
 const station = require("../helpers/station")
 
 async function placesReposta() {
     let Stations = await reductionJson(station)
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
     return Stations 
 }
 

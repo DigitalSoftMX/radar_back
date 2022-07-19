@@ -11,7 +11,11 @@ const stationSchema = new schema({
         type: String,
         trim: true,
         unique: true,
+<<<<<<< HEAD
+        match: [ /[A-ZÑ&]{2}[/][0-9]{3,}[/][A-ZÑ&]{3}[/][A-ZÑ&]{2}[/][0-9]{4}$/i, 'Ingrese un CRE válido']
+=======
         match: [ /[A-ZÑ&]{2}[/][0-9]{4,}[/][A-ZÑ&]{3}[/][A-ZÑ&]{2}[/][0-9]{4}$/i, 'Ingrese un CRE válido']
+>>>>>>> 009c9878cc2849b5bf99645a3b8ff1dc5f2bfe95
     },
     prices: [{
         type: schema.Types.ObjectId,

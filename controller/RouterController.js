@@ -1,4 +1,5 @@
 const{ placesData } = require("../helpers/placedata")
+const { reductionJson } = require("../helpers/reductionJson")
 const serveResp = require("../function/serveResp")
 const { datatoprintExcel } = require("../helpers/dataExcel")
 const stationscompetitions = require("../helpers/stationscompetitions")
@@ -7,7 +8,7 @@ const rangeDates = require("../helpers/rangeDates")
 const Purchase = require('../model/Purchase')
 let dataPrice = []
 let temp = []
-const today = new Date();
+const today = new Date()
 var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,'0') +"-" + today.getDate()
 /* la de estaciones es cada 24 horas y la de precios es cada 30 min */
 
@@ -15,13 +16,13 @@ var getToday = today.getFullYear() + "-" + `${(today.getMonth()+1)}`.padStart(2,
 //!            MEDIA 
 //!==============================================================================================
 exports.PlacesYPrices = async function(req, res) {
-    const error = { error: 'La request no tiene data'}
     try {
-        z = await  placesData()
-      serveResp(z, 'Se creó satisfactoriamente la categoria', 201, res)
+        z = await  reductionJson()
+        console.log(z);
+      serveResp('OK', null, 'Se creó satisfactoriamente la categoria', 201, res)
     } catch (error) {
         console.log(error); 
-        serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
+        serveResp(null, error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
 exports.PlacesYPricesExcel = async function(req, res) {
@@ -34,7 +35,6 @@ exports.PlacesYPricesExcel = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
-
 exports.PlacesYPricesByDay = async function(req, res) {
     dataPrice = []
     const dateActually = req.query.date
@@ -83,10 +83,8 @@ exports.PlacesYPricesByDay = async function(req, res) {
         serveResp( error, 'Se creó satisfactoriamente la categoria', 201, res)
     } 
 }
-
 exports.PurchaseDay = async function(req, res) {
-    console.log(Object.entries(req.body).length);
-    if ( Object.entries(req.body).length === 0) {
+    if ( Object.entries(req.body).length == 0) {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
         var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(newDatePurchase.createdAt.getDate()+1)}`.padStart(2,'0')
@@ -119,10 +117,9 @@ exports.PurchaseDay = async function(req, res) {
     } else {
         let datePurchase = await Purchase.find()
         newDatePurchase = datePurchase[datePurchase.length -1]
-        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + `${(newDatePurchase.createdAt.getDate()+1)}`.padStart(2,'0')
+        var getToday2 = newDatePurchase.createdAt.getFullYear() + "-" + `${(newDatePurchase.createdAt.getMonth()+1)}`.padStart(2,'0') +"-" + newDatePurchase.createdAt.getDate()
         try {
             if (getToday2 != getToday) {
-                console.log(req.body)
                 const purchaseRegular_price =  req.body?.purchaseRegular?.price
                 const purchaseRegular_date =  req.body?.purchaseRegular?.date
                 const purchasePremium_price =  req.body?.purchasePremium?.price
